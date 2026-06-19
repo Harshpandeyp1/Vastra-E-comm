@@ -1,0 +1,3 @@
+Vastra is a full-stack fashion e-commerce web application that provides a seamless online shopping experience for users. It allows customers to browse fashion products, search and filter items, manage their shopping cart, place orders, and securely authenticate their accounts. The application also includes an admin panel for managing products, categories, inventory, and orders. Built with React for the frontend, Spring Boot for the backend, and MySQL as the database, Vastra follows a modern client-server architecture using REST APIs to deliver a responsive, scalable, and user-friendly shopping platform.
+
+<img width="1899" height="923" alt="Screenshot 2026-06-18 005311" src="https://github.com/user-attachments/assets/4fabe8d1-0f4a-4112-85e8-fb0a32bb3b79" />
