@@ -1,6 +1,7 @@
 package com.Ecomm.prj.Service;
 
 import com.Ecomm.prj.Dto.LoginDto;
+import com.Ecomm.prj.Dto.LoginResponseDto;
 import com.Ecomm.prj.Dto.SignupDto;
 import com.Ecomm.prj.Model.User;
 import com.Ecomm.prj.repository.UserRepo;
@@ -28,16 +29,23 @@ public class UserService {
         repo.save(user);
         return "Signup successful";
     }
-    public String login(LoginDto request){
-        User user=repo.findByUsername(
-                request.getUsername())
+    public LoginResponseDto login(LoginDto request){
+
+        User user = repo.findByUsername(request.getUsername())
                 .orElse(null);
+
         if(user == null){
-            return "User not found";
+            return null;
         }
+
         if(!user.getPassword().equals(request.getPassword())){
-            return "Wrong Password";
+            return null;
         }
-        return "Login Successful";
+
+        return new LoginResponseDto(
+                user.getId(),
+                user.getUsername(),
+                user.getEmail()
+        );
     }
-}
+    }
