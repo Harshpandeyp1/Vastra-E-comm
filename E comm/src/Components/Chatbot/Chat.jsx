@@ -1,18 +1,30 @@
 import React from 'react'
-import { useState } from "react";
+import { useState ,useRef,useEffect} from "react";
 const Chat = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [messages, setMessages] = useState([]);
+   const chatbox=useRef(null);
     const [input, setInput] = useState("");
+    const [loading,setLoading]=useState(false);
+    useEffect(()=>{
+     scrollTop();
+    },[messages]);
     const toggle = () => {
         setIsOpen(!isOpen);
     }
-   const send = () => {
-    if (!input.trim()) return;
-    setMessages([
-        ...messages,
+    const scrollTop=()=>{
+      if(chatbox.current){
+        chatbox.current.scrollTop=chatbox.current.scrollHeight;
+      }
+    }
+   const send =async () => {
+     if (!input.trim()) return;
+     const message = input.trim();
+    setMessages(prev=>[
+      ...prev,
+       
         {
-            text: input,
+            text: input.trim(),
             sender: "user"
         }
     ])
@@ -43,9 +55,8 @@ const Chat = () => {
         [ X ]
       </button>
     </div>
-
     {/* Messages Box Area */}
-    <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-50/50">
+    <div ref={chatbox} className="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-50/50">
       {messages.length === 0 ? (
         <div className="text-xs text-slate-500">No messages yet. Ask VASTRA AI anything!</div>
       ) : (
@@ -64,9 +75,10 @@ const Chat = () => {
     <div className="p-4 border-t border-slate-100 bg-white">
       <div className="flex items-center gap-2 bg-slate-950 text-white rounded-xl p-1 pl-3 shadow-lg">
         <input 
+        disabled={loading}
           type="text" 
           onKeyDown={(e) => {
-            if (e.key === "Enter") {
+            if (e.key === "Enter"&& !loading) {
                 send();
             }
         }}
@@ -75,8 +87,9 @@ const Chat = () => {
           placeholder="Ask VASTRA AI..." 
           className="flex-1 bg-transparent border-none outline-hidden text-xs text-white placeholder-slate-400 py-2 font-mono"
         />
-        <button onClick={send} className="h-8 px-4 bg-purple-600 text-white rounded-lg font-black uppercase text-[10px] tracking-wider hover:bg-purple-500 transition-colors">
-          Send
+        <button disabled={loading} onClick={send} className="h-8 px-4 bg-purple-600 text-white rounded-lg font-black uppercase text-[10px] tracking-wider hover:bg-purple-500 transition-colors">
+          
+          {loading ? "Thinking..." : "Send"}
         </button>
       </div>
     </div>
