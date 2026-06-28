@@ -1,34 +1,68 @@
-import React from 'react'
-import { useState ,useRef,useEffect} from "react";
+import React, { useState, useRef, useEffect } from 'react'
+import { sendMessage } from "../../Service/chatService";
 const Chat = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [messages, setMessages] = useState([]);
    const chatbox=useRef(null);
     const [input, setInput] = useState("");
     const [loading,setLoading]=useState(false);
-    useEffect(()=>{
-     scrollTop();
-    },[messages]);
-    const toggle = () => {
-        setIsOpen(!isOpen);
-    }
-    const scrollTop=()=>{
+
+    const scrollToBottom=()=>{
       if(chatbox.current){
         chatbox.current.scrollTop=chatbox.current.scrollHeight;
       }
     }
+
+    useEffect(()=>{
+     scrollToBottom();
+    },[messages]);
+    const toggle = () => {
+        setIsOpen(!isOpen);
+    }
+    
    const send =async () => {
      if (!input.trim()) return;
-     const message = input.trim();
+     const Usermessage = input.trim();
     setMessages(prev=>[
       ...prev,
        
         {
-            text: input.trim(),
+            text: Usermessage,
             sender: "user"
         }
     ])
     setInput("");
+    setLoading(true);
+
+   
+    try{
+    const aiResponse=await sendMessage(Usermessage);
+    setMessages(prev => [
+    ...prev,
+    {
+        text: aiResponse,
+        sender: "ai"
+    }
+]);
+    }
+    catch(e){
+      console.error(e);
+
+        // Show an error message in the chat
+        setMessages(prev => [
+            ...prev,
+            {
+                text: "Sorry! Something went wrong.",
+                sender: "ai"
+            }
+        ]);
+    }
+    finally {
+
+        // This always runs
+        setLoading(false);
+
+    }
    }
     
   return (
