@@ -1,5 +1,6 @@
 import React from 'react'
 import { FaInstagram, FaFacebook, FaTwitter, FaWhatsapp } from 'react-icons/fa'
+import { Link } from 'react-router-dom'
 
 const Footer = () => {
   return (
@@ -10,6 +11,7 @@ const Footer = () => {
 
         {/* Brand */}
         <div>
+
           <h1 className="text-2xl font-black tracking-[0.4em]">
             VASTRA
           </h1>
@@ -21,26 +23,42 @@ const Footer = () => {
         {/* Shop Links */}
         <div>
           <h2 className="text-sm font-bold uppercase tracking-widest mb-4">
-            Shop
+            <Link to="/outlet" className="hover:text-white">Shop</Link>
           </h2>
           <ul className="space-y-2 text-xs text-gray-400">
-            <li className="hover:text-white cursor-pointer">New Arrivals</li>
-            <li className="hover:text-white cursor-pointer">Men</li>
-            <li className="hover:text-white cursor-pointer">Women</li>
-            <li className="hover:text-white cursor-pointer">Collections</li>
+            <li>
+              <Link to="/trending" className="hover:text-white cursor-pointer block">New Arrivals</Link>
+            </li>
+            <li>
+              <Link to="/men" className="hover:text-white cursor-pointer block">Men</Link>
+            </li>
+            <li>
+              <Link to="/women" className="hover:text-white cursor-pointer block">Women</Link>
+            </li>
+            <li>
+              <Link to="/collections" className="hover:text-white cursor-pointer block">Collections</Link>
+            </li>
           </ul>
         </div>
 
         {/* Support */}
         <div>
           <h2 className="text-sm font-bold uppercase tracking-widest mb-4">
-            Support
+            <Link to="/contact" className="hover:text-white">Support</Link>
           </h2>
           <ul className="space-y-2 text-xs text-gray-400">
-            <li className="hover:text-white cursor-pointer">Contact</li>
-            <li className="hover:text-white cursor-pointer">FAQ</li>
-            <li className="hover:text-white cursor-pointer">Shipping</li>
-            <li className="hover:text-white cursor-pointer">Returns</li>
+            <li>
+              <Link to="/contact" className="hover:text-white cursor-pointer block">Contact</Link>
+            </li>
+            <li>
+              <Link to="/faq" className="hover:text-white cursor-pointer block">FAQ</Link>
+            </li>
+            <li>
+              <Link to="/orders" className="hover:text-white cursor-pointer block">Shipping</Link>
+            </li>
+            <li>
+              <Link to="/returns" className="hover:text-white cursor-pointer block">Returns</Link>
+            </li>
           </ul>
         </div>
 
@@ -66,9 +84,9 @@ const Footer = () => {
         <p>© 2026 VASTRA. All rights reserved.</p>
 
         <div className="flex gap-6 mt-4 md:mt-0">
-          <span className="hover:text-white cursor-pointer">Privacy Policy</span>
-          <span className="hover:text-white cursor-pointer">Terms</span>
-          <span className="hover:text-white cursor-pointer">Cookies</span>
+          <Link to="/privacy" className="hover:text-white cursor-pointer">Privacy Policy</Link>
+          <Link to="/terms" className="hover:text-white cursor-pointer">Terms</Link>
+          <Link to="/cookies" className="hover:text-white cursor-pointer">Cookies</Link>
         </div>
 
       </div>
