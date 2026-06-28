@@ -3,32 +3,13 @@ import { useNavigate, Link } from 'react-router-dom'
 import model from '../assets/model.png'
 import model2 from '../assets/model2.png'
 import Navbar from '../Components/Navbar'
-import streetwomen from '../assets/streetwomen.jpg'
-import gown from '../assets/gown.jpg'
-import skirt from '../assets/skirt.jpg'
-import dress from '../assets/dress.jpg'
-import jacket from '../assets/jacket.jpg'
-import track from '../assets/track.jpg'
 import Footer from '../Components/Footer'
 import { FaInstagram, FaFacebook, FaTwitter, FaWhatsapp } from 'react-icons/fa'
-
-const IMAGE_BASE_URL = 'http://localhost:8081/images';
-
-const imageMap = {
-  'streetwomen.jpg': streetwomen,
-  'gown.jpg': gown,
-  'skirt.jpg': skirt,
-  'dress.jpg': dress,
-  'jacket.jpg': jacket,
-  'track.jpg': track,
-};
-
-const getLandingImageUrl = (imageUrl) => {
-  if (!imageUrl) return '';
-  return imageMap[imageUrl] || `${IMAGE_BASE_URL}/${imageUrl}`;
-};
+import { getImageUrl } from '../utils/imageHelpers'
+import Chat from '../Components/Chatbot/Chat'
 
 const Landing = () => {
+
   const[products, setProducts] = useState([])
   const[loading, setLoading] = useState(true)
   const [active, setActive] = useState('left')
@@ -64,7 +45,7 @@ fetch('http://localhost:8081/api/home')
       })
     }
   }
-
+  <Chat/>
 if(loading) {
   return <h1 className='text-center mt-20 text-2xl font-bold text-slate-900'>Loading...</h1>}
   return (
@@ -153,7 +134,7 @@ if(loading) {
   <img
     src={model2}
     alt="model2"
-    className="absolute bottom-0 h-[100%] max-w-none object-contain transition-all duration-1000 ease-out transform origin-bottom"
+    className="absolute bottom-0 h-[100%] max-w-none object-contain transition-all duration-1000 ease-out transform origin-bottom pointer-events-none"
     style={{
       opacity: active === 'right' ? 1 : 0,
       transform: active === 'right' ? 'translateY(0) scale(1)' : 'translateY(30px) scale(0.98)'
@@ -196,13 +177,13 @@ if(loading) {
                   {product.tag}
                 </span>
                 <img 
-                 src={getLandingImageUrl(product.imageUrl)}
+                 src={getImageUrl(product)}
                  alt={product.name}
                  className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
                  loading="lazy"
                  onError={(e) => {
-                   const fallback = `${IMAGE_BASE_URL}/${product.imageUrl}`;
-                   if (e.currentTarget.src !== fallback) {
+                   const fallback = getImageUrl(product);
+                   if (fallback && e.currentTarget.src !== fallback) {
                      e.currentTarget.src = fallback;
                    }
                  }}
@@ -237,7 +218,6 @@ if(loading) {
           </span>
         </button>
       </div>
-
       <Footer />
     </div>
 
