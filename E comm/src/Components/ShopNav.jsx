@@ -91,18 +91,7 @@ const handleSearch = (e) => {
 
         {/* RIGHT: Actions */}
         <div className="flex items-center gap-6">
-          {/* Refined Search */}
-          <div className="hidden sm:flex items-center bg-purple-50/50 border border-purple-100/50 px-4 py-2 rounded-2xl focus-within:bg-white focus-within:ring-2 focus-within:ring-purple-100 transition-all group">
-<input
-  type="text"
-  value={query}
-  onChange={(e) => setQuery(e.target.value)}
-  onKeyDown={handleSearch}
-  placeholder="Search products..."
-  className="outline-none text-xs bg-transparent w-28 lg:w-40"
-/>
-            <Search className="w-4 h-4 text-slate-400 group-focus-within:text-purple-500 transition-colors" />
-          </div>
+          
 
           {/* Action Icons */}
           <div className="flex items-center gap-5 text-slate-700">
@@ -112,7 +101,7 @@ const handleSearch = (e) => {
           <Link to="/cart" className="relative hover:text-purple-600 hover:scale-110 transition-all">
   <ShoppingBag className="w-5 h-5" />
   <span className="absolute -top-1.5 -right-1.5 text-[9px] font-bold bg-purple-600 text-white rounded-full w-4 h-4 flex items-center justify-center">
-    2
+    *
   </span>
 </Link>
 

@@ -16,19 +16,13 @@ import {
   addToWishlist,
   removeFromWishlist,
   getWishlist
-} from "../service/wishlist"
+} from "../Service/Wishlist"
 import{
   addToCart,
   removeFromCart,
   getCart
-}from "../service/cart"
-
-const IMAGE_BASE_URL = "http://localhost:8081/images";
-
-const getProductImageUrl = (imageUrl) => {
-  if (!imageUrl) return "";
-  return imageUrl.startsWith("http") ? imageUrl : `${IMAGE_BASE_URL}/${imageUrl}`;
-};
+}from "../Service/Cart"
+import { getImageUrl } from "../utils/imageHelpers"
 
 const Product = () => {
 
@@ -89,7 +83,14 @@ const handleWishlist = async (product) => {
 }, [])
 
 if (loading) {
-  return <div>Loading...</div>;
+  return (
+    <div className="min-h-screen flex flex-col items-center justify-center gap-4 bg-white">
+      <div className="h-10 w-10 border-2 border-slate-900 border-t-transparent rounded-full animate-spin" />
+      <p className="text-sm tracking-[0.2em] uppercase text-slate-500">
+        Loading
+      </p>
+    </div>
+  );
 }
   // add to cart
   const handleCart =async(product) => {
@@ -136,7 +137,7 @@ if (loading) {
             {console.log(item.imageUrl)}
 
             {/* Image Box */}
-            <div className="relative aspect-[3/4] rounded-3xl bg-purple-50/50 overflow-hidden border border-purple-100/20">
+            <div className="relative aspect-[3/4] rounded-3xl bg-purple-100 overflow-hidden border border-purple-100/20">
 
               {/* Badge */}
               {item.tag && (
@@ -173,22 +174,15 @@ if (loading) {
                 />
 
               </button>
-              {/* Add to Cart */}
-              <button
-                onClick={() => handleCart(item)}
-                className="absolute inset-x-4 bottom-4 translate-y-12 group-hover:translate-y-0 transition bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700"
-              >
-                <ShoppingCart className="w-4 h-4 inline-block mr-2" />
-                Add to Cart
-              </button>
+              
               {/* Product Image */}
              <img
-              src={getProductImageUrl(item.imageUrl)}
+              src={getImageUrl(item)}
               alt={item.name}
               className="w-full h-full object-contain p-6 group-hover:scale-110 transition-transform duration-700 ease-in-out"
               onError={(e) => {
-                const fallback = `${IMAGE_BASE_URL}/${item.imageUrl}`;
-                if (e.currentTarget.src !== fallback) {
+                const fallback = getImageUrl(item);
+                if (fallback && e.currentTarget.src !== fallback) {
                   e.currentTarget.src = fallback;
                 }
               }}

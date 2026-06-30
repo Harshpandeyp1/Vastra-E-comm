@@ -4,28 +4,59 @@ import {
   addToWishlist,
   removeFromWishlist,
   getWishlist
-} from "../service/wishlist";
-import { addToCart } from "../service/cart";
+} from "../Service/Wishlist";
+import { addToCart } from "../Service/Cart";
 
 const Productcard = ({ item }) => {
-const [added, setAdded] = useState(false);
+  const [added, setAdded] = useState(false);
   const [isWishlisted, setIsWishlisted] = useState(false);
+  const [wishlistItemId, setWishlistItemId] = useState(null);
 
+  useEffect(() => {
+    const loadWishlist = async () => {
+      const userId = 1; // temporary
 
-  // check on load
-const handleWishlist = async () => {
-  const userId = 1; // temporary
+      try {
+        const wishlist = await getWishlist(userId);
+        const existing = wishlist.find(
+          (entry) => entry.product?.id === item.id
+        );
 
-  try {
-    await addToWishlist(userId, item.id);
+        if (existing) {
+          setIsWishlisted(true);
+          setWishlistItemId(existing.id);
+        }
+      } catch (error) {
+        console.error("Error loading wishlist:", error);
+      }
+    };
 
-    setIsWishlisted(true);
-  } catch (error) {
-    console.log(error);
-  }
-};
+    loadWishlist();
+  }, [item.id]);
 
-const handleCart = async () => {
+  const handleWishlist = async () => {
+    const userId = 1; // temporary
+
+    try {
+      if (isWishlisted && wishlistItemId) {
+        await removeFromWishlist(wishlistItemId);
+      } else {
+        await addToWishlist(userId, item.id);
+      }
+
+      const wishlist = await getWishlist(userId);
+      const existing = wishlist.find(
+        (entry) => entry.product?.id === item.id
+      );
+
+      setIsWishlisted(Boolean(existing));
+      setWishlistItemId(existing?.id ?? null);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleCart = async () => {
   const cartData = {
     userId: 1,
     productId: item.id,
@@ -45,11 +76,11 @@ const handleCart = async () => {
     <div className="group flex flex-col cursor-pointer">
 
       {/* Image */}
-      <div className="relative aspect-[3/4] rounded-3xl bg-purple-50/50 overflow-hidden">
+      <div className="relative aspect-[3/4] rounded-3xl bg-purple-100 overflow-hidden">
 
         {/* Tag */}
         {item.tag && (
-          <span className="absolute top-4 left-4 z-10 px-3 py-1 bg-white text-[10px] font-bold text-purple-600 rounded-full">
+          <span className="absolute top-4 left-4 z-10 px-3 py-1 bg-purple-500 text-[10px] font-bold text-purple-900 rounded-full">
             {item.tag}
           </span>
         )}
@@ -81,7 +112,7 @@ const handleCart = async () => {
           <button
             onClick={handleCart}
             className={`w-full py-2 rounded-xl text-sm transition ${
-              added ? "bg-green-500 text-white" : "bg-black text-white"
+              added ? "bg-purple-500 text-white" : "bg-black text-white"
             }`}
           >
             {added ? "Added ✓" : "Add to Cart"}
