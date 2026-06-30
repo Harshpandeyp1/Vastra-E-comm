@@ -37,9 +37,16 @@ const Men = () => {
    setLoading(false);
 }
   }
-  if(loading) {
-    return <h1 className='text-center mt-20 text-2xl font-bold text-slate-900'>Loading...</h1>
-  }
+ if (loading) {
+  return (
+    <div className="min-h-screen flex flex-col items-center justify-center gap-4 bg-white">
+      <div className="h-10 w-10 border-2 border-slate-900 border-t-transparent rounded-full animate-spin" />
+      <p className="text-sm tracking-[0.2em] uppercase text-slate-500">
+        Loading
+      </p>
+    </div>
+  );
+}
   const imageMap = {
   "jacket.jpg": jacket,
   "shirt.jpg": shirt,
@@ -51,7 +58,7 @@ const productsWithImages = products.map(product => ({
   img: imageMap[product.imageUrl]
 }));
   return (
-    <div className="w-full bg-gradient-to-r from-purple-200/40 via-indigo-300/30 to-violet-400/40">
+    <div className="w-full bg-[#FFFFF0]">
 
       <ShopNav />
 

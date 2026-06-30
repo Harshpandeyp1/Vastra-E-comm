@@ -1,8 +1,8 @@
 import React from 'react'
-import img1 from '../assets/men1.jpg'
+import img1 from '../assets/kids1.jpg'
 import { useState, useEffect } from 'react'
-import img2 from '../assets/men2.jpg'
-import img3 from '../assets/men3.jpg'
+import img2 from '../assets/kids2.jpg'
+import img3 from '../assets/kids3.jpg'
 import kidjacket from '../assets/kidjacket.jpg'
 import kidskirt from '../assets/kidskirt.jpg'
 import kidhodie from '../assets/kidhodie.jpg'
@@ -34,9 +34,16 @@ setproducts(data);
    setloading(false);
 }
 }
-    if(loading) {
-      return <h1 className='text-center mt-20 text-2xl font-bold text-slate-900'>Loading...</h1>
-    }
+    if (loading) {
+  return (
+    <div className="min-h-screen flex flex-col items-center justify-center gap-4 bg-white">
+      <div className="h-10 w-10 border-2 border-slate-900 border-t-transparent rounded-full animate-spin" />
+      <p className="text-sm tracking-[0.2em] uppercase text-slate-500">
+        Loading
+      </p>
+    </div>
+  );
+}
     const imageMap = {
     "kidjacket.jpg": kidjacket,
     "kidskirt.jpg": kidskirt,
@@ -49,7 +56,7 @@ const productsWithImages = products.map(product => ({
 }));
 
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-r from-purple-200/40 via-indigo-300/30 to-violet-400/40">
+    <div className="flex flex-col min-h-screen bg-[#FFFFF0]">
 
       <ShopNav />
 

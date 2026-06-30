@@ -4,10 +4,11 @@ import Hero from '../Components/Hero'
 import Categories from '../Components/Categories'
 import Products from '../Components/Products'
 import Footer from '../Components/Footer'
+import Chat from '../Components/Chatbot/Chat'
 import TopBrands from '../Components/Brands'
 const Mainpage = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-r from-purple-200/40 via-indigo-300/30 to-violet-400/40">
+    <div className="min-h-screen bg-[#FFFFF0]">
       
       <ShopNav />
 
@@ -22,9 +23,10 @@ const Mainpage = () => {
       </div>
       <div >
         <Products />
+        <Chat/>
         <TopBrands />
       </div>
-
+       
       <Footer />
     </div>
   )

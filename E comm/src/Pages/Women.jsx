@@ -1,9 +1,9 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import ShopNav from '../Components/ShopNav'
-import img1 from '../assets/men1.jpg'
-import Img2 from '../assets/men2.jpg'
-import Img3 from '../assets/men3.jpg'
+import img1 from '../assets/women1.jpg'
+import Img2 from '../assets/women2.jpg'
+import Img3 from '../assets/women3.jpg'
 import dress from '../assets/dress.jpg'
 import skirt from '../assets/skirt.jpg'
 import gown from '../assets/gown.jpg'
@@ -36,9 +36,16 @@ const[loading,setloading]=useState(true);
      setloading(false);
   }
     }
-    if(loading) {
-      return <h1 className='text-center mt-20 text-2xl font-bold text-slate-900'>Loading...</h1>
-    }
+    if (loading) {
+  return (
+    <div className="min-h-screen flex flex-col items-center justify-center gap-4 bg-white">
+      <div className="h-10 w-10 border-2 border-slate-900 border-t-transparent rounded-full animate-spin" />
+      <p className="text-sm tracking-[0.2em] uppercase text-slate-500">
+        Loading
+      </p>
+    </div>
+  );
+}
     const imageMap = {
     "dress.jpg": dress,
     "skirt.jpg": skirt,
@@ -50,7 +57,7 @@ const[loading,setloading]=useState(true);
     img: imageMap[product.imageUrl]
   }));
   return (
-    <div className="w-full bg-gradient-to-r from-purple-200/40 via-indigo-300/30 to-violet-400/40">
+    <div className="w-full bg-[#FFFFF0]">
 
       <ShopNav />
 

@@ -46,8 +46,16 @@ fetch('http://localhost:8081/api/home')
     }
   }
   <Chat/>
-if(loading) {
-  return <h1 className='text-center mt-20 text-2xl font-bold text-slate-900'>Loading...</h1>}
+if (loading) {
+  return (
+    <div className="min-h-screen flex flex-col items-center justify-center gap-4 bg-white">
+      <div className="h-10 w-10 border-2 border-slate-900 border-t-transparent rounded-full animate-spin" />
+      <p className="text-sm tracking-[0.2em] uppercase text-slate-500">
+        Loading
+      </p>
+    </div>
+  );
+}
   return (
     <div className="bg-[#FFFFF0] min-h-screen">
       <Navbar />
