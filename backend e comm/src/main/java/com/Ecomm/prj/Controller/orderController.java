@@ -20,4 +20,9 @@ public class orderController {
 
     }
 
+    @GetMapping("/user/{userId}")
+    public java.util.List<Order> getOrdersByUser(@PathVariable int userId) {
+        return orderService.getOrdersByUserId(userId);
+    }
+
 }
