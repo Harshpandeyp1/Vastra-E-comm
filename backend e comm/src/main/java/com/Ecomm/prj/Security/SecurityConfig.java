@@ -49,6 +49,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth->auth
                         .requestMatchers(org.springframework.http.HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/products/**").permitAll()
+                        .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/home").permitAll()
+                        .requestMatchers("/cart/**", "/wishlist/**").authenticated()
                         .anyRequest().authenticated()
                 )
         .sessionManagement(session->
