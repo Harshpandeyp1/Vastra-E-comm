@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom"
+import { BrowserRouter, Routes, Route, useLocation, Navigate } from "react-router-dom"
 import { useEffect } from "react"
 import Landing from "./Pages/Landing"
 import Login from "./Pages/Login"
@@ -16,7 +16,8 @@ import Searchpage from "./Components/Searchpage"
 import Collections from "./Pages/Collections"
 import Checkout from "./Pages/Checkout"
 import Success from "./Pages/Success"
-
+import ProtectedRoute from "./Components/ProtectRoutes";
+import PublicRoute from "./Components/PublicRoutes";
 function ScrollToTop(){
   const { pathname } = useLocation();
 
@@ -31,25 +32,155 @@ function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
-      <Routes>
-        <Route path="/" element={<Landing />} />
-          <Route path="/collections" element={<Collections />} />
-       <Route path="/login" element={<Login />} />
-       <Route path="/main" element={<Mainpage />} />
-       <Route path="/Men" element={<Men />} />
-       <Route path="/search" element={<Searchpage />} />
-        <Route path="/Women" element={<Women />} />
-       <Route path="/Kids" element={<Kids />} />
-      <Route path="/Trending" element={<Trendings />} />
-      <Route path="/Outlet" element={<Outlet />} />
-        <Route path="/Cart" element={<Cart />} />
-       {<Route path="/Profile" element={<Profile />} /> }
-       <Route path="/Order" element={<Order />} />
-       <Route path="/Wishlist" element={<Wishlist />} />
-       <Route path="/checkout" element={<Checkout />} />
-       <Route path="/success" element={<Success />} />
-  
-      </Routes>
+     <Routes>
+
+  {/* Public Routes */}
+
+  <Route path="/" element={<Landing />} />
+
+  <Route
+    path="/login"
+    element={
+      <PublicRoute>
+        <Login />
+      </PublicRoute>
+    }
+  />
+
+  {/* Protected Routes */}
+
+  <Route
+    path="/main"
+    element={
+      <ProtectedRoute>
+        <Mainpage />
+      </ProtectedRoute>
+    }
+  />
+
+  <Route
+    path="/collections"
+    element={
+      <ProtectedRoute>
+        <Collections />
+      </ProtectedRoute>
+    }
+  />
+
+  <Route
+    path="/Men"
+    element={
+      <ProtectedRoute>
+        <Men />
+      </ProtectedRoute>
+    }
+  />
+
+  <Route
+    path="/Women"
+    element={
+      <ProtectedRoute>
+        <Women />
+      </ProtectedRoute>
+    }
+  />
+
+  <Route
+    path="/Kids"
+    element={
+      <ProtectedRoute>
+        <Kids />
+      </ProtectedRoute>
+    }
+  />
+
+  <Route
+    path="/Trending"
+    element={
+      <ProtectedRoute>
+        <Trendings />
+      </ProtectedRoute>
+    }
+  />
+
+  <Route
+    path="/Outlet"
+    element={
+      <ProtectedRoute>
+        <Outlet />
+      </ProtectedRoute>
+    }
+  />
+
+  <Route
+    path="/Cart"
+    element={
+      <ProtectedRoute>
+        <Cart />
+      </ProtectedRoute>
+    }
+  />
+
+  <Route
+    path="/Wishlist"
+    element={
+      <ProtectedRoute>
+        <Wishlist />
+      </ProtectedRoute>
+    }
+  />
+
+  <Route
+    path="/Profile"
+    element={
+      <ProtectedRoute>
+        <Profile />
+      </ProtectedRoute>
+    }
+  />
+
+  <Route
+    path="/Order"
+    element={
+      <ProtectedRoute>
+        <Order />
+      </ProtectedRoute>
+    }
+  />
+
+  <Route
+    path="/checkout"
+    element={
+      <ProtectedRoute>
+        <Checkout />
+      </ProtectedRoute>
+    }
+  />
+
+  <Route
+    path="/success"
+    element={
+      <ProtectedRoute>
+        <Success />
+      </ProtectedRoute>
+    }
+  />
+
+  <Route
+    path="/search"
+    element={
+      <ProtectedRoute>
+        <Searchpage />
+      </ProtectedRoute>
+    }
+  />
+
+  <Route
+    path="*"
+    element={<Navigate to="/login" replace />}
+  />
+
+</Routes>
     </BrowserRouter>
   )
 }
