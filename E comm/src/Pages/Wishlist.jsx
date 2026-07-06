@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import ShopNav from '../Components/ShopNav'
 import Footer from '../Components/Footer'
-import { getWishlist, removeFromWishlist } from "../service/Wishlist";
-import {Link} from "react-router-dom"
+import { getWishlist, removeFromWishlist } from "../Service/Wishlist";
+import { Link } from "react-router-dom"
+
+import { getImageUrl } from "../utils/imageHelpers";
+
 const Wishlist = () => {
 
   const [wishlist, setWishlist] = useState([]);
@@ -10,8 +13,12 @@ const Wishlist = () => {
   useEffect(() => {
     const loadWishlist = async () => {
       try{
-        const userId=1;
-        const data = await getWishlist(userId);
+        const user=JSON.parse(localStorage.getItem("user"));
+        if(!user){
+          return;
+        }
+        const userId = user.id;
+        const data = await getWishlist(user.id);
         console.log(data);
         setWishlist(data);
       } catch (error) {
@@ -69,10 +76,16 @@ return (
               {/* Image Container with Editorial Aspect Ratio */}
               <div className="relative aspect-[3/4] overflow-hidden rounded-[2rem] bg-stone-100 shadow-2xl shadow-purple-900/10">
                <img
-  src={`http://localhost:8081/images/${item.product.imageUrl}`}
-  alt={item.product.name}
-  className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
-/>
+                 src={getImageUrl(item)}
+                 alt={item.product?.name || item?.name || "Product image"}
+                 className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                 onError={(e) => {
+                   const fallback = getImageUrl(item?.product || item);
+                   if (fallback && e.currentTarget.src !== fallback) {
+                     e.currentTarget.src = fallback;
+                   }
+                 }}
+               />
                 
                 {/* Floating Glass Action Overlay */}
                 <div className="absolute inset-x-4 bottom-4 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
