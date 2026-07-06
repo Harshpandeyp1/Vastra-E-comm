@@ -6,36 +6,47 @@ export const addToWishlist = async (
   userId,
   productId
 ) => {
-
+  const token=localStorage.getItem("token");
   const response = await fetch(
     `${BASE_URL}/${userId}/${productId}`,
     {
-      method: "POST"
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
     }
+  }
   );
 
   return response.json();
 };
-export const getWishlist = async (
-  userId
-) => {
+export const getWishlist = async (userId) => {
 
-  const response =
-    await fetch(
-      `${BASE_URL}/${userId}`
+    const token = localStorage.getItem("token");
+
+    const response = await fetch(
+        `${BASE_URL}/${userId}`,
+        {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }
     );
 
-  return response.json();
+    return response.json();
 };
 
 
-export const removeFromWishlist =
-async (wishlistId) => {
+export const removeFromWishlist = async (wishlistId) => {
 
-  await fetch(
-    `${BASE_URL}/${wishlistId}`,
-    {
-      method: "DELETE"
-    }
-  );
+    const token = localStorage.getItem("token");
+
+    await fetch(
+        `${BASE_URL}/${wishlistId}`,
+        {
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }
+    );
 };
