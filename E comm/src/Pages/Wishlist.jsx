@@ -38,7 +38,7 @@ const Wishlist = () => {
   }
 };
 return (
-  <div className="min-h-screen flex flex-col bg-gradient-to-r from-purple-200/40 via-indigo-300/30 to-violet-400/40 font-sans">
+  <div className="min-h-screen flex flex-col bg-linear-to-r from-purple-200/40 via-indigo-300/30 to-violet-400/40 font-sans">
     <ShopNav />
 
     <div className="max-w-7xl mx-auto w-full px-6 flex-1 pt-32 pb-20">
@@ -74,7 +74,7 @@ return (
           {wishlist.map((item) => (
             <div key={item.id} className="group relative">
               {/* Image Container with Editorial Aspect Ratio */}
-              <div className="relative aspect-[3/4] overflow-hidden rounded-[2rem] bg-stone-100 shadow-2xl shadow-purple-900/10">
+              <div className="relative aspect-3/4 overflow-hidden rounded-4xl bg-stone-100 shadow-2xl shadow-purple-900/10">
                <img
                  src={getImageUrl(item)}
                  alt={item.product?.name || item?.name || "Product image"}
@@ -108,7 +108,7 @@ return (
                 </p>
                 
                 {/* Visual Detail Line */}
-                <div className="mt-3 h-[1px] w-8 bg-purple-200 mx-auto group-hover:w-16 transition-all duration-500"></div>
+                <div className="mt-3 h-px w-8 bg-purple-200 mx-auto group-hover:w-16 transition-all duration-500"></div>
               </div>
             </div>
           ))}
