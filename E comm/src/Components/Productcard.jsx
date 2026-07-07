@@ -11,10 +11,14 @@ const Productcard = ({ item }) => {
   const [added, setAdded] = useState(false);
   const [isWishlisted, setIsWishlisted] = useState(false);
   const [wishlistItemId, setWishlistItemId] = useState(null);
+  const [authMessage, setAuthMessage] = useState("");
 
   useEffect(() => {
     const loadWishlist = async () => {
-      const userId = 1; // temporary
+      const user = JSON.parse(localStorage.getItem("user") || "null");
+      const userId = user?.id;
+
+      if (!userId) return;
 
       try {
         const wishlist = await getWishlist(userId);
@@ -35,7 +39,14 @@ const Productcard = ({ item }) => {
   }, [item.id]);
 
   const handleWishlist = async () => {
-    const userId = 1; // temporary
+    const user = JSON.parse(localStorage.getItem("user") || "null");
+    const userId = user?.id;
+    const token = localStorage.getItem("token");
+
+    if (!userId || !token) {
+      setAuthMessage("Please log in first to use wishlist.");
+      return;
+    }
 
     try {
       if (isWishlisted && wishlistItemId) {
@@ -57,8 +68,17 @@ const Productcard = ({ item }) => {
   };
 
   const handleCart = async () => {
+  const user = JSON.parse(localStorage.getItem("user") || "null");
+  const userId = user?.id;
+  const token = localStorage.getItem("token");
+
+  if (!userId || !token) {
+    setAuthMessage("Please log in first to add items to the cart.");
+    return;
+  }
+
   const cartData = {
-    userId: 1,
+    userId,
     productId: item.id,
     quantity: 1,
   };
@@ -76,7 +96,7 @@ const Productcard = ({ item }) => {
     <div className="group flex flex-col cursor-pointer">
 
       {/* Image */}
-      <div className="relative aspect-[3/4] rounded-3xl bg-purple-100 overflow-hidden">
+      <div className="relative aspect-3/4 rounded-3xl bg-purple-100 overflow-hidden">
 
         {/* Tag */}
         {item.tag && (
@@ -120,6 +140,10 @@ const Productcard = ({ item }) => {
 
         </div>
       </div>
+
+      {authMessage && (
+        <p className="mt-2 text-xs text-red-500">{authMessage}</p>
+      )}
 
       {/* Details */}
       <div className="mt-4">
