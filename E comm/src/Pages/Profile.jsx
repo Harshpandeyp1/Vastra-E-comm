@@ -1,29 +1,60 @@
 import React, { useEffect, useState } from "react";
 import ShopNav from "../Components/ShopNav";
 import Footer from "../Components/Footer";
-import { getProfile, logout } from "../service/Profile";
+import { getProfile, logout } from "../Service/Profile";
+import { getUserProfile } from "../Service/ProfileApi";
+import { getUserOrders } from "../Service/Order";
+import { getWishlist } from "../Service/Wishlist";
+import { getCart } from "../Service/Cart";
 import { useNavigate, Link } from "react-router-dom";
 
 const Profile = () => {
-
   const [user, setUser] = useState(null);
-
+  const [stats, setStats] = useState({ orders: 0, wishlist: 0, cart: 0 });
   const navigate = useNavigate();
 
-  // Load user
   useEffect(() => {
-
     const currentUser = getProfile();
 
-    setUser(currentUser);
+    if (!currentUser) {
+      navigate("/login");
+      return;
+    }
 
-  }, []);
+    const fetchProfile = async () => {
+      try {
+        const profile = await getUserProfile(currentUser.id);
+        setUser(profile);
 
-  // Logout
+        const [ordersRes, wishlistRes, cartRes] = await Promise.all([
+          getUserOrders(currentUser.id).catch(() => []),
+          getWishlist(currentUser.id).catch(() => []),
+          getCart(currentUser.id).catch(() => []),
+        ]);
+
+        const getCount = (value) => {
+          if (Array.isArray(value)) return value.length;
+          if (Array.isArray(value?.value)) return value.value.length;
+          return 0;
+        };
+
+        setStats({
+          orders: getCount(ordersRes),
+          wishlist: getCount(wishlistRes),
+          cart: getCount(cartRes),
+        });
+      } catch (error) {
+        console.error("Failed to load profile from backend:", error);
+        setUser(currentUser);
+        setStats({ orders: 0, wishlist: 0, cart: 0 });
+      }
+    };
+
+    fetchProfile();
+  }, [navigate]);
+
   const handleLogout = () => {
-
     logout();
-
     navigate("/login");
   };
 
@@ -42,18 +73,19 @@ const Profile = () => {
 
     {/* Profile Image */}
     <div className="relative z-10">
-      <img
-        src="https://i.pravatar.cc/200"
-        alt="Profile"
-        className="w-36 h-36 rounded-[2rem] object-cover border-4 border-white/20 shadow-2xl"
-      />
+      <div
+        className="w-36 h-36 rounded-[2rem] border-4 border-white/20 shadow-2xl bg-slate-800/80 flex items-center justify-center"
+        aria-label="Profile placeholder"
+      >
+        <span className="text-4xl font-black text-white/70">?</span>
+      </div>
 
       <div className="absolute bottom-2 right-2 w-5 h-5 rounded-full bg-emerald-400 border-4 border-slate-950"></div>
     </div>
 
     {/* Name */}
     <h1 className="mt-8 text-3xl font-black uppercase tracking-tight text-center">
-      {user?.name || "Guest User"}
+      {user?.username || "Guest User"}
     </h1>
 
     {/* Email */}
@@ -107,7 +139,7 @@ const Profile = () => {
         </p>
 
         <h3 className="text-4xl font-black mt-3 text-slate-900">
-          12
+          {stats.orders}
         </h3>
       </div>
 
@@ -117,7 +149,7 @@ const Profile = () => {
         </p>
 
         <h3 className="text-4xl font-black mt-3 text-slate-900">
-          08
+          {stats.wishlist}
         </h3>
       </div>
 
@@ -127,7 +159,7 @@ const Profile = () => {
         </p>
 
         <h3 className="text-4xl font-black mt-3 text-slate-900">
-          03
+          {stats.cart}
         </h3>
       </div>
 
