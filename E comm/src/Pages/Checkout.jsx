@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { getCart } from '../Service/Cart'
 import { placeOrder } from '../Service/Order'
-
+import { getProfile } from "../Service/Profile";
 const Checkout = () => {
   const [address, setAddress] = useState('')
   const [loading, setLoading] = useState(false)
@@ -10,18 +10,25 @@ const Checkout = () => {
 
   const navigate = useNavigate()
 
-  useEffect(() => {
-    const loadCart = async () => {
-      try {
-        const data = await getCart(1)
-        setCart(data)
-      } catch (error) {
-        console.error('Failed to load cart', error)
-      }
-    }
+ useEffect(() => {
+  const loadCart = async () => {
+    try {
+      const user = getProfile();
 
-    loadCart()
-  }, [])
+      if (!user) {
+        navigate("/login");
+        return;
+      }
+
+      const data = await getCart(user.id);
+      setCart(data);
+    } catch (error) {
+      console.error("Failed to load cart", error);
+    }
+  };
+
+  loadCart();
+}, [navigate]);
 
   const handlePlaceOrder = async () => {
     if (address.trim() === '') {
@@ -30,15 +37,17 @@ const Checkout = () => {
     }
 
     setLoading(true)
-    const order = {
-      userId: 1,
-      address,
-      items: cart,
-    }
+    const user = getProfile();
+
+const orderData = {
+    userId: user.id,
+    address,
+    items: cart
+};
 
     try {
-      console.log('Placing order:', order)
-      const response = await placeOrder(order)
+      console.log('Placing order:', orderData);
+      const response = await placeOrder(orderData)
       const totalPrice = cart.reduce((sum, item) => sum + (item.product?.price || 0) * (item.quantity || 0), 0)
       const successState = {
         orderId: response?.id ?? response?.orderId ?? Date.now(),

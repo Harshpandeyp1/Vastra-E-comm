@@ -4,44 +4,37 @@ import Footer from "../Components/Footer";
 
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { placeOrder } from "../service/order";
 import {
   getCart,
   removeFromCart,
   updateQuantity,
-} from "../service/cart";
+} from "../Service/Cart";
 
-const IMAGE_BASE_URL = "http://localhost:8081/images";
-
-const getImageUrl = (url) => {
-  if (!url) return "";
-  return url.startsWith("http") ? url : `${IMAGE_BASE_URL}/${url}`;
-};
+import { getImageUrl } from "../utils/imageHelpers";
 
 const Cart = () => {
   const [cart, setCart] = useState([]);
 const navigate = useNavigate();
+const user=JSON.parse(localStorage.getItem("user") || "null");
 const handleCheckout = () => {
-
-  placeOrder(cart);
-
-  setCart([]);
-
-  navigate("/order");
+  navigate("/checkout");
 };
 useEffect(() => {
   const loadCart = async () => {
-    const data = await getCart(1);
-console.log(data);
+    if (!user?.id) return;
+
+    const data = await getCart(user.id);
+    console.log(data);
     setCart(data);
-  }
+  };
+
   loadCart();
-}, []);
+}, [user?.id]);
   // Remove item
 const handleRemove = async (item) => {
   await removeFromCart(item.id);
 
-  const updated = await getCart(1);
+  const updated = await getCart(user.id);
 
   setCart(updated);
 };
@@ -55,7 +48,7 @@ await updateQuantity(item.id, newQuantity);
 
   
 
-  const updated = await getCart(1);
+  const updated = await getCart(user.id);
 
   setCart(updated);
 };
@@ -66,7 +59,7 @@ await updateQuantity(item.id, newQuantity);
   }, 0);
 
   return (
-  <div className="min-h-screen flex flex-col bg-gradient-to-r from-purple-200/40 via-indigo-300/30 to-violet-400/40 font-sans">
+  <div className="min-h-screen flex flex-col bg-linear-to-r from-purple-200/40 via-indigo-300/30 to-violet-400/40 font-sans">
     <ShopNav />
 
     <div className="max-w-6xl mx-auto w-full px-6 flex-1 py-20">
@@ -102,14 +95,20 @@ await updateQuantity(item.id, newQuantity);
             {cart.map((item) => (
               <div
                 key={item.id}
-                className="group flex items-center gap-6 bg-white/60 backdrop-blur-xl p-6 rounded-[2rem] border border-white/50 shadow-2xl shadow-purple-900/5 transition-all hover:border-purple-300"
+                className="group flex items-center gap-6 bg-white/60 backdrop-blur-xl p-6 rounded-4xl border border-white/50 shadow-2xl shadow-purple-900/5 transition-all hover:border-purple-300"
               >
                 {/* Image Container */}
                 <div className="w-32 h-32 bg-stone-100 rounded-2xl overflow-hidden shrink-0 shadow-inner">
                   <img
-                    src={getImageUrl(item.product?.imageUrl)}
-                    alt={item.product?.name || "Product image"}
+                    src={getImageUrl(item)}
+                    alt={item.product?.name || item?.name || "Product image"}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    onError={(e) => {
+                      const fallback = getImageUrl(item?.product || item);
+                      if (fallback && e.currentTarget.src !== fallback) {
+                        e.currentTarget.src = fallback;
+                      }
+                    }}
                   />
                 </div>
 
@@ -174,15 +173,15 @@ await updateQuantity(item.id, newQuantity);
                 <span className="text-3xl font-black text-white">₹{total}</span>
               </div>
             </div>
-<button
-  onClick={handleCheckout}
-  className="group inline-flex items-center justify-center px-6 py-3 bg-purple-600 text-white rounded-2xl font-black uppercase text-[11px] tracking-[0.2em] hover:bg-purple-500 transition-all shadow-xl shadow-purple-900/40 active:scale-95"
->
-  Secure Checkout
-  <span className="inline-block ml-2 transition-transform group-hover:translate-x-1">
-    →
-  </span>
-</button>
+            <button
+              onClick={handleCheckout}
+              className="group inline-flex items-center justify-center px-6 py-3 bg-purple-600 text-white rounded-2xl font-black uppercase text-[11px] tracking-[0.2em] hover:bg-purple-500 transition-all shadow-xl shadow-purple-900/40 active:scale-95"
+            >
+              Secure Checkout
+              <span className="inline-block ml-2 transition-transform group-hover:translate-x-1">
+                →
+              </span>
+            </button>
             
             <p className="text-[8px] text-center text-slate-500 mt-6 uppercase tracking-widest">
               Encrypted Transactions // Secure Link
