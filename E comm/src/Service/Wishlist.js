@@ -20,17 +20,20 @@ export const addToWishlist = async (
   return response.json();
 };
 export const getWishlist = async (userId) => {
-
     const token = localStorage.getItem("token");
 
     const response = await fetch(
-        `${BASE_URL}/${userId}`,
+        `http://localhost:8081/wishlist/${userId}`,
         {
             headers: {
-                Authorization: `Bearer ${token}`
-            }
+                Authorization: `Bearer ${token}`,
+            },
         }
     );
+
+    if (!response.ok) {
+        throw new Error("Failed");
+    }
 
     return response.json();
 };
