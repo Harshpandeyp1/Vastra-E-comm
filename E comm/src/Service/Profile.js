@@ -1,16 +1,23 @@
-const key = "profile";
+import axios from "axios";
 
-// SAVE USER
+const StorageKey = "profile";
+const baseUrl = "http://localhost:8081/user";
+
 export const saveProfile = (userData) => {
-  localStorage.setItem(key, JSON.stringify(userData));
+    localStorage.setItem(StorageKey, JSON.stringify(userData));
 };
 
-// GET USER
 export const getProfile = () => {
-  return JSON.parse(localStorage.getItem(key)) || null;
+    const raw = localStorage.getItem(StorageKey);
+    return raw ? JSON.parse(raw) : null;
 };
 
-// LOGOUT USER
+export const isAuthenticated = () => {
+    return !!localStorage.getItem("token");
+};
 export const logout = () => {
-  localStorage.removeItem(key);
+    localStorage.removeItem(StorageKey);
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    
 };
