@@ -20,6 +20,7 @@ public class JwtUtil {
     );
 
     public String generateToken(String email) {
+        System.out.println("[JwtUtil] Generating token for email = " + email);
         return Jwts.builder()
                 .subject(email)
                 .issuedAt(new Date())
@@ -29,6 +30,7 @@ public class JwtUtil {
     }
 
     public String extractUsername(String token) {
+        System.out.println("[JwtUtil] Extracting username from token");
         return Jwts.parser()
                 .verifyWith(key)
                 .build()
@@ -38,13 +40,17 @@ public class JwtUtil {
     }
 
     public boolean validateToken(String token, String email) {
+        System.out.println("[JwtUtil] Validating token for email = " + email);
         String username = extractUsername(token);
-        return username != null
+        boolean valid = username != null
                 && username.equals(email)
                 && !isTokenExpired(token);
+        System.out.println("[JwtUtil] Validation result = " + valid + ", token subject = " + username);
+        return valid;
     }
 
     public boolean isTokenExpired(String token) {
+        System.out.println("[JwtUtil] Checking token expiration");
         return Jwts.parser()
                 .verifyWith(key)
                 .build()

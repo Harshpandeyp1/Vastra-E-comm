@@ -30,10 +30,12 @@ public class SecurityConfig {
     }
     @Bean
     public PasswordEncoder passwordEncoder(){
+        System.out.println("[SecurityConfig] Creating PasswordEncoder");
         return new BCryptPasswordEncoder();
     }
     @Bean
     public AuthenticationProvider authenticationProvider(){
+        System.out.println("[SecurityConfig] Creating AuthenticationProvider");
         DaoAuthenticationProvider provider=new DaoAuthenticationProvider();
 
         provider.setUserDetailsService(customeruserdetailservice);
@@ -42,6 +44,7 @@ public class SecurityConfig {
     }
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http)throws Exception{
+        System.out.println("[SecurityConfig] Building SecurityFilterChain");
 
         http
                 .cors(Customizer.withDefaults())
@@ -59,6 +62,7 @@ public class SecurityConfig {
         )
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+        System.out.println("[SecurityConfig] JWT filter added before UsernamePasswordAuthenticationFilter");
         return http.build();
 
 
@@ -68,11 +72,13 @@ public class SecurityConfig {
     public AuthenticationManager authenticationManager(
             AuthenticationConfiguration config)
         throws Exception{
+        System.out.println("[SecurityConfig] Creating AuthenticationManager");
         return config.getAuthenticationManager();
     }
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
+        System.out.println("[SecurityConfig] Creating CORS configuration");
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(List.of("http://localhost:5173"));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
