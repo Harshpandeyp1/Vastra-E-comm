@@ -63,7 +63,16 @@ public class orderService {
 
         order.setOrderItems(orderItems);
         order.setTotalAmount(total);
-        orderrepo.save(order);
-        return order;
+        Order savedOrder = orderrepo.save(order);
+        cartRepo.deleteAll(cartItems);
+        System.out.println("[orderService] Order placed and cart cleared for userId = " + orderdto.getUserId());
+        return savedOrder;
+    }
+
+    public List<Order> getOrdersByUserId(int userId) {
+        User user = userrepo.findById((long) userId)
+                .orElseThrow(() -> new RuntimeException("user not found"));
+
+        return orderrepo.findByUser_Id(user.getId());
     }
 }
