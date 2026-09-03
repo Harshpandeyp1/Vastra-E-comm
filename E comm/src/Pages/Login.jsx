@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import login from '../assets/login.jpg'
 import { Mail, Lock, User } from 'lucide-react';
 import Footer from '../Components/Footer';
+import { saveProfile } from '../Service/Profile';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -24,59 +25,105 @@ const Login = () => {
     setUiError('');
     setUiMessage('');
   };
+const handleSignup = async () => {
+  try {
+    setUiError("");
+    setUiMessage("");
 
-  const handleSignup = async () => {
-    try {
-      setUiError('');
-      setUiMessage('');
-      const response = await fetch('http://localhost:8081/api/auth/signup', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
-      });
-      
-      const data = await response.text();
-      
-      if (!response.ok) {
-        setUiError(data || 'An error occurred during registration.');
-      } else {
-        setUiMessage(data || 'Registration successful! Switch to login.');
-      }
-    } catch (error) {
-      console.error('Error signing up:', error);
-      setUiError('Network communication failure. Please check your backend connection.');
-    }
-  };
+    const response = await fetch("http://localhost:8081/api/auth/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
 
-  const handleLogin = async () => {
-    try {
-      setUiError('');
-      setUiMessage('');
-      const response = await fetch('http://localhost:8081/api/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
-      });
-      
-      const data = await response.text();
-      
-      if (data === "Login Successful") {
-        setUiMessage(data);
-        setTimeout(() => {
-          navigate('/main');
-        }, 1000); // Small timeout so the user sees the confirmation UI status
-      } else {
-        setUiError(data || 'Invalid authentication parameters provided.');
-      }
-    } catch (error) {
-      console.error('Error logging in:', error);
-      setUiError('Network communication failure. Please check your backend connection.');
+    const data = await response.text();
+
+    if (response.ok) {
+      setUiMessage(data);
+
+      // Switch back to Login after successful signup
+      setIsLogin(true);
+
+    } else {
+      setUiError(data);
     }
-  };
+
+  } catch (error) {
+    console.error("Error signing up:", error);
+    setUiError("Network communication failure. Please check your backend connection.");
+  }
+};
+const handleLogin = async () => {
+  
+  try {
+    setUiError("");
+    setUiMessage("");
+    console.log({
+  username: formData.username,
+  password: formData.password,
+});
+    const response = await fetch("http://localhost:8081/api/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: formData.email || formData.username,
+        password: formData.password,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+
+      const authToken = data.token || data.accessToken || data.jwt || "authenticated";
+
+      // Save JWT Token
+      localStorage.setItem("token", authToken);
+      localStorage.setItem("isLoggedIn", "true");
+
+      // Save logged-in user
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          id: data.id,
+          username: data.username || formData.username,
+          email: data.email || formData.email,
+           role: data.role
+        })
+      );
+
+      // If your project uses this function, keep it
+      saveProfile(data);
+
+      setUiMessage("Login Successful");
+
+     setTimeout(() => {
+
+        if (data.role === "MERCHANT") {
+          navigate("/merchant/dashboard");
+        } 
+        else if (data.role === "ADMIN") {
+          navigate("/admin/dashboard");
+        } 
+        else {
+          navigate("/main");
+        }
+
+       }, 1000);
+
+    } else {
+      setUiError(data.message || "Invalid username or password.");
+    }
+
+  } catch (error) {
+    console.error("Error logging in:", error);
+    setUiError("Network communication failure. Please check your backend connection.");
+  }
+};
 
   return (
     <div className="relative min-h-screen flex flex-col items-center justify-center">
@@ -95,8 +142,8 @@ const Login = () => {
         <div className="w-full max-w-md bg-[#0b0b0f] flex items-center justify-center p-6 font-sans relative overflow-hidden rounded-[3rem] shadow-lg">
 
           {/* Glow */}
-          <div className="absolute w-[400px] h-[400px] bg-white/10 rounded-full blur-[120px] -z-10 animate-pulse" />
-          <div className="absolute bottom-[-150px] right-[-150px] w-[500px] h-[500px] bg-gray-500/10 rounded-full blur-[140px] -z-10" />
+          <div className="absolute w-100 h-100 bg-white/10 rounded-full blur-[120px] -z-10 animate-pulse" />
+          <div className="absolute -bottom-37.5 -right-37.5 w-125 h-125 bg-gray-500/10 rounded-full blur-[140px] -z-10" />
 
           {/* Card */}
           <div className="w-full rounded-[2.5rem] p-10 bg-white/5 backdrop-blur-2xl shadow-[0_20px_60px_rgba(0,0,0,0.6)] border border-white/10 relative overflow-hidden">
@@ -123,11 +170,11 @@ const Login = () => {
                 </h1>
 
                 <div className="flex items-center gap-2 mt-2">
-                  <div className="h-[1px] w-10 bg-purple-400"></div>
+                  <div className="h-px w-10 bg-purple-400"></div>
                   <span className="text-[9px] font-bold uppercase tracking-[0.3em] text-slate-400">
                     Welcome Back
                   </span>
-                  <div className="h-[1px] w-10 bg-purple-400"></div>
+                  <div className="h-px w-10 bg-purple-400"></div>
                 </div>
               </div>
             </div>
@@ -206,12 +253,12 @@ const Login = () => {
               <div className="group relative">
                 <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 group-focus-within:text-purple-400 transition-colors" />
                 <input
-                  type="text"
-                  name="username"
+                  type="email"
+                  name="email"
                   required
-                  value={formData.username}
+                  value={formData.email}
                   onChange={handleChange}
-                  placeholder="Username"
+                  placeholder="Email"
                   className="w-full pl-11 pr-4 py-3.5 bg-black/30 border border-white/10 rounded-2xl text-white placeholder-gray-600 focus:outline-none focus:border-purple-500 focus:bg-black/50 transition-all text-sm"
                 />
               </div>

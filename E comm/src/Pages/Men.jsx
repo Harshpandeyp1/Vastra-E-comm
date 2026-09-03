@@ -47,16 +47,12 @@ const Men = () => {
     </div>
   );
 }
-  const imageMap = {
-  "jacket.jpg": jacket,
-  "shirt.jpg": shirt,
-  "hoodie.jpg": hodie,
-  "streetmen.jpg": streetmen
-};
+
 const productsWithImages = products.map(product => ({
   ...product,
-  img: imageMap[product.imageUrl]
+  img: product.imageUrl
 }));
+
   return (
     <div className="w-full bg-[#FFFFF0]">
 
