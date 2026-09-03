@@ -42,6 +42,7 @@ public class SecurityConfig {
         provider.setPasswordEncoder(passwordEncoder());
         return provider;
     }
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http)throws Exception{
         System.out.println("[SecurityConfig] Building SecurityFilterChain");
@@ -49,12 +50,34 @@ public class SecurityConfig {
         http
                 .cors(Customizer.withDefaults())
                 .csrf(csrf->csrf.disable())
-                .authorizeHttpRequests(auth->auth
-                        .requestMatchers(org.springframework.http.HttpMethod.OPTIONS, "/**").permitAll()
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(
+                                org.springframework.http.HttpMethod.OPTIONS,
+                                "/**"
+                        ).permitAll()
+
                         .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/products/**").permitAll()
-                        .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/home").permitAll()
-                        .requestMatchers("/cart/**", "/wishlist/**").authenticated()
+
+                        .requestMatchers("/chat", "/chat/**", "/api/chat", "/api/chat/**").permitAll()
+
+                        .requestMatchers("/error").permitAll()
+
+                        .requestMatchers(
+                                org.springframework.http.HttpMethod.GET,
+                                "/api/products/**"
+                        ).permitAll()
+
+                        .requestMatchers(
+                                org.springframework.http.HttpMethod.GET,
+                                "/api/home"
+                        ).permitAll()
+
+                        .requestMatchers("/api/merchant/**")
+                        .hasRole("MERCHANT")
+
+                        .requestMatchers("/cart/**", "/wishlist/**")
+                        .authenticated()
+
                         .anyRequest().authenticated()
                 )
         .sessionManagement(session->

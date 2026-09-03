@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,7 +23,11 @@ public class Product {
     @Column(name = "image_url")
     private String imageUrl;
 
-    private Double price;
+    @Column(precision = 10, scale = 2)
+    private BigDecimal price;
+
+    @Column(precision = 10, scale = 2)
+    private BigDecimal costPrice;
 
     private String category;
 
@@ -29,51 +35,9 @@ public class Product {
     @JoinColumn(name = "merchant_id")
     private Merchant merchant;
 
-    public Long getId() {
-        return id;
-    }
+    private String gender;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    private String occasion;
 
-    public String getName() {
-        return name;
-    }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public Merchant getMerchant() {
-        return merchant;
-    }
-
-    public void setMerchant(Merchant merchant) {
-        this.merchant = merchant;
-    }
 }

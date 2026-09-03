@@ -47,4 +47,29 @@ public class MerchantService {
 
         return merchantRepo.save(merchant);
     }
+    public Merchant updateMerchant(
+            User user,
+            String storeName,
+            String description,
+            String address,
+            String phone) {
+
+        Merchant merchant = merchantRepo.findByUser(user)
+                .orElseThrow(() ->
+                        new RuntimeException("Merchant profile not found"));
+
+        merchant.setStoreName(storeName);
+        merchant.setDescription(description);
+        merchant.setAddress(address);
+        merchant.setPhone(phone);
+
+        return merchantRepo.save(merchant);
+    }
+
+    public Merchant getMerchantByUser(User user) {
+
+        return merchantRepo.findByUser(user)
+                .orElseThrow(() ->
+                        new RuntimeException("Merchant profile not found"));
+    }
 }

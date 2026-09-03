@@ -24,6 +24,14 @@ public class JwtFilter extends OncePerRequestFilter {
     }
 
     @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) {
+        String path = request.getRequestURI();
+        return path.startsWith("/api/auth/")
+                || path.equals("/api/auth")
+                || path.equals("/error");
+    }
+
+    @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain filterChain)
@@ -33,14 +41,16 @@ public class JwtFilter extends OncePerRequestFilter {
         String authHeader = request.getHeader("Authorization");
         System.out.println("[JwtFilter] Authorization header = " + authHeader);
 
-        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+        if (authHeader == null || authHeader.isBlank()) {
             System.out.println("[JwtFilter] Missing Bearer token, skipping JWT auth");
             filterChain.doFilter(request, response);
             return;
         }
 
         try {
-            String jwt = authHeader.substring(7);
+            String jwt = authHeader.startsWith("Bearer ")
+                    ? authHeader.substring(7)
+                    : authHeader.trim();
             System.out.println("[JwtFilter] JWT extracted = " + jwt);
 
             String username = jwtUtil.extractUsername(jwt);

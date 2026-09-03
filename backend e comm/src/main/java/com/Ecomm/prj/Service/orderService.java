@@ -54,7 +54,7 @@ public class orderService {
             orderItem.setProduct(item.getProduct());
             orderItem.setQuantity(item.getQuantity());
 
-            BigDecimal itemTotal = BigDecimal.valueOf(item.getProduct().getPrice())
+            BigDecimal itemTotal = item.getProduct().getPrice()
                     .multiply(BigDecimal.valueOf(item.getQuantity()));
             orderItem.setPrice(itemTotal);
             orderItems.add(orderItem);
@@ -75,4 +75,77 @@ public class orderService {
 
         return orderrepo.findByUser_Id(user.getId());
     }
+
+    public List<Order> getOrdersByMerchantId(Long merchantId) {
+
+        return orderrepo.findDistinctByOrderItems_Product_Merchant_Id(merchantId);
+    }
+
+    public Order confirmOrder(int orderId,Long merchantId){
+
+        Order order = orderrepo.findOrderForMerchant(orderId)
+                .orElseThrow(() ->
+                        new RuntimeException("Order not found"));
+
+
+
+        boolean belongsToMerchant=order.getOrderItems()
+                .stream()
+                .allMatch(item->
+                        item.getProduct()
+                                .getMerchant()
+                                .getId()
+                                .equals(merchantId));
+        if (!belongsToMerchant)
+        { throw new RuntimeException( "This order does not belong to this merchant" );
+        }
+        if (!order.getStatus().equalsIgnoreCase("placed"))
+        { throw new RuntimeException( "Only placed orders can be confirmed" );
+        }
+
+        order.setStatus("CONFIRMED");
+        return orderrepo.save(order);
+    }
+
+    @Transactional
+    public Order startProcessing(int orderId, Long merchantId) {
+
+        // 1. Find the order
+        Order order = orderrepo.findById(orderId)
+                .orElseThrow(() ->
+                        new RuntimeException("Order not found"));
+
+        // 2. Check that this order belongs to this merchant
+        boolean belongsToMerchant = order.getOrderItems()
+                .stream()
+                .allMatch(item ->
+                        item.getProduct()
+                                .getMerchant()
+                                .getId()
+                                .equals(merchantId)
+                );
+
+        if (!belongsToMerchant) {
+            throw new RuntimeException(
+                    "This order does not belong to this merchant"
+            );
+        }
+
+        // 3. Only CONFIRMED orders can start processing
+        if (!order.getStatus().equalsIgnoreCase("CONFIRMED")) {
+            throw new RuntimeException(
+                    "Only confirmed orders can be processed"
+            );
+        }
+
+        // 4. Change status
+        order.setStatus("PROCESSING");
+
+        // 5. Save to database
+        return orderrepo.save(order);
+    }
+
+
+
+
 }

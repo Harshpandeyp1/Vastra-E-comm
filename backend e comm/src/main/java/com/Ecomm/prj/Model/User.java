@@ -3,18 +3,24 @@ package com.Ecomm.prj.Model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="users")
+@Table(name = "users")
 public class User {
+
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    public String getUsername() {
-        return username;
-    }
+    @Column(unique = true)
+    private String username;
 
-    public void setUsername(String username) {
-        this.username = username;
+    private String email;
+
+    private String password;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+    public User() {
     }
 
     public Long getId() {
@@ -23,6 +29,14 @@ public class User {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getEmail() {
@@ -41,12 +55,11 @@ public class User {
         this.password = password;
     }
 
-    @Column(unique = true)
-    private String username;
-    private String email;
-    private String password;
+    public Role getRole() {
+        return role;
+    }
 
-    public User() {
-
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

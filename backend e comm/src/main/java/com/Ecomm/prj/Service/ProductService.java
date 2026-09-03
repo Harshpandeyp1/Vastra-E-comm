@@ -6,6 +6,7 @@ import com.Ecomm.prj.repository.MerchantRepo;
 import com.Ecomm.prj.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -62,7 +63,7 @@ public class ProductService {
 
         product.setName(name);
         product.setImageUrl(imageUrl);
-        product.setPrice(price);
+        product.setPrice(price != null ? BigDecimal.valueOf(price) : null);
         product.setCategory(category);
         product.setMerchant(merchant);
 
@@ -76,13 +77,15 @@ public class ProductService {
             String name,
             String imageUrl,
             Double price,
+
+
             String category) {
 
         Product product = findMerchantProductOrThrow(merchantId, productId);
 
         product.setName(name);
         product.setImageUrl(imageUrl);
-        product.setPrice(price);
+        product.setPrice(price != null ? BigDecimal.valueOf(price) : null);
         product.setCategory(category);
 
         return productRepository.save(product);
@@ -104,5 +107,19 @@ public class ProductService {
             throw new RuntimeException("Product not found or does not belong to this merchant");
         }
         return products.get(0);
+    }
+    public List<Product> getProductsByMaxPrice(BigDecimal maxPrice) {
+        return productRepository.findByPriceLessThanEqual(maxPrice);
+    }
+
+    public List<Product> getProductsByCategoryAndMaxPrice(
+            String category,
+            BigDecimal maxPrice) {
+
+        return productRepository
+                .findByCategoryIgnoreCaseAndPriceLessThanEqual(
+                        category,
+                        maxPrice
+                );
     }
 }

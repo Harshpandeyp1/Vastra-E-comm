@@ -24,7 +24,7 @@ public class HomeService {
                 .map(p -> new ProductDto(
                         p.getId(),
                         p.getName(),
-                        p.getPrice(),
+                        p.getPrice() != null ? p.getPrice().doubleValue() : null,
                         p.getImageUrl(),
                         p.getCategory()
                 ))
