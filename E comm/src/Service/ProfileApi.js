@@ -20,15 +20,24 @@ export const getUserProfile = async (id) => {
   try {
     const response = await axios.get(`${API}/profile/${id}`);
     const profile = response.data;
+
     if (profile) {
       saveProfile(profile);
     }
+
     return profile;
+
   } catch (err) {
-    console.error("getUserProfile error:", err.response?.status, err.response?.data || err.message);
+    console.error(
+      "getUserProfile error:",
+      err.response?.status,
+      err.response?.data || err.message
+    );
+
     if (localProfile) {
       return localProfile;
     }
+
     throw err;
   }
 };
@@ -36,15 +45,26 @@ export const getUserProfile = async (id) => {
 export const sendProfile = async (profile) => {
   try {
     const response = await axios.post(`${API}/profile`, profile, {
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
+
     const savedProfile = response.data;
+
     if (savedProfile) {
       saveProfile(savedProfile);
     }
+
     return savedProfile;
+
   } catch (err) {
-    console.error("sendProfile error:", err.response?.status, err.response?.data || err.message);
+    console.error(
+      "sendProfile error:",
+      err.response?.status,
+      err.response?.data || err.message
+    );
+
     throw err;
   }
 };

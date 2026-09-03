@@ -16,8 +16,14 @@ import Searchpage from "./Components/Searchpage"
 import Collections from "./Pages/Collections"
 import Checkout from "./Pages/Checkout"
 import Success from "./Pages/Success"
-import ProtectedRoute from "./Components/ProtectRoutes";
+import ProtectedRoute from "./Components/ProtectedRoutes";
 import PublicRoute from "./Components/PublicRoutes";
+import MerchantProfile from "./Pages/MerchantProfile"
+import MerchantDashboard from "./Pages/MerchantDashboard";
+import MerchantOrders from "./Pages/MerchantOrders";
+import MerchantProducts from "./Pages/MerchantProducts";
+import MerchantPending from "./Pages/MerchantPending";
+import MerchantDeliveries from "./Pages/MerchantDeliveries";
 function ScrollToTop(){
   const { pathname } = useLocation();
 
@@ -36,7 +42,14 @@ function App() {
 
   {/* Public Routes */}
 
-  <Route path="/" element={<Landing />} />
+  <Route
+    path="/"
+    element={
+      <PublicRoute>
+        <Landing />
+      </PublicRoute>
+    }
+  />
 
   <Route
     path="/login"
@@ -52,7 +65,7 @@ function App() {
   <Route
     path="/main"
     element={
-      <ProtectedRoute>
+      <ProtectedRoute allowedRoles={["USER"]}>
         <Mainpage />
       </ProtectedRoute>
     }
@@ -61,7 +74,7 @@ function App() {
   <Route
     path="/collections"
     element={
-      <ProtectedRoute>
+      <ProtectedRoute allowedRoles={["USER"]}>
         <Collections />
       </ProtectedRoute>
     }
@@ -70,7 +83,7 @@ function App() {
   <Route
     path="/Men"
     element={
-      <ProtectedRoute>
+      <ProtectedRoute allowedRoles={["USER"]}>
         <Men />
       </ProtectedRoute>
     }
@@ -79,7 +92,7 @@ function App() {
   <Route
     path="/Women"
     element={
-      <ProtectedRoute>
+      <ProtectedRoute allowedRoles={["USER"]}>
         <Women />
       </ProtectedRoute>
     }
@@ -88,7 +101,7 @@ function App() {
   <Route
     path="/Kids"
     element={
-      <ProtectedRoute>
+      <ProtectedRoute allowedRoles={["USER"]}>
         <Kids />
       </ProtectedRoute>
     }
@@ -97,7 +110,7 @@ function App() {
   <Route
     path="/Trending"
     element={
-      <ProtectedRoute>
+      <ProtectedRoute allowedRoles={["USER"]}>
         <Trendings />
       </ProtectedRoute>
     }
@@ -106,7 +119,7 @@ function App() {
   <Route
     path="/Outlet"
     element={
-      <ProtectedRoute>
+      <ProtectedRoute allowedRoles={["USER"]}>
         <Outlet />
       </ProtectedRoute>
     }
@@ -115,7 +128,7 @@ function App() {
   <Route
     path="/Cart"
     element={
-      <ProtectedRoute>
+      <ProtectedRoute allowedRoles={["USER"]}>
         <Cart />
       </ProtectedRoute>
     }
@@ -124,7 +137,7 @@ function App() {
   <Route
     path="/Wishlist"
     element={
-      <ProtectedRoute>
+      <ProtectedRoute allowedRoles={["USER"]}>
         <Wishlist />
       </ProtectedRoute>
     }
@@ -133,7 +146,7 @@ function App() {
   <Route
     path="/Profile"
     element={
-      <ProtectedRoute>
+      <ProtectedRoute allowedRoles={["USER"]}>
         <Profile />
       </ProtectedRoute>
     }
@@ -142,7 +155,7 @@ function App() {
   <Route
     path="/Order"
     element={
-      <ProtectedRoute>
+      <ProtectedRoute allowedRoles={["USER"]}>
         <Order />
       </ProtectedRoute>
     }
@@ -151,7 +164,7 @@ function App() {
   <Route
     path="/checkout"
     element={
-      <ProtectedRoute>
+      <ProtectedRoute allowedRoles={["USER"]}>
         <Checkout />
       </ProtectedRoute>
     }
@@ -160,7 +173,7 @@ function App() {
   <Route
     path="/success"
     element={
-      <ProtectedRoute>
+      <ProtectedRoute allowedRoles={["USER"]}>
         <Success />
       </ProtectedRoute>
     }
@@ -169,16 +182,69 @@ function App() {
   <Route
     path="/search"
     element={
-      <ProtectedRoute>
+      <ProtectedRoute allowedRoles={["USER"]}>
         <Searchpage />
       </ProtectedRoute>
     }
   />
 
+
   <Route
     path="*"
     element={<Navigate to="/login" replace />}
   />
+  <Route
+    path="/merchant/dashboard"
+    element={
+        <ProtectedRoute allowedRoles={["MERCHANT"]}>
+            <MerchantDashboard />
+        </ProtectedRoute>
+    }
+/>
+
+<Route
+  path="/merchant/orders"
+  element={
+    <ProtectedRoute allowedRoles={["MERCHANT"]}>
+      <MerchantOrders />
+    </ProtectedRoute>
+  }
+/>
+
+
+<Route
+  path="/merchant/profile"
+  element={
+      <ProtectedRoute allowedRoles={["MERCHANT"]}>
+      <MerchantProfile />
+    </ProtectedRoute>
+  }
+/>
+<Route
+  path="/merchant/products"
+  element={
+    <ProtectedRoute allowedRoles={["MERCHANT"]}>
+      <MerchantProducts />
+    </ProtectedRoute>
+  }
+/>
+<Route
+  path="/merchant/pending"
+  element={
+    <ProtectedRoute allowedRoles={["MERCHANT"]}>
+      <MerchantPending />
+    </ProtectedRoute>
+  }
+/>
+<Route
+  path="/merchant/deliveries"
+  element={
+    <ProtectedRoute allowedRoles={["MERCHANT"]}>
+      <MerchantDeliveries />
+    </ProtectedRoute>
+  }
+/>
+
 
 </Routes>
     </BrowserRouter>
