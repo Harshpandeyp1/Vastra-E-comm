@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 const Navbar = () => {
   return (
-    <div className="absolute top-0 left-0 w-full z-20 flex">
+    <div className="absolute top-0 left-0 w-full z-50 flex">
 
       {/* LEFT SIDE */}
       <div className="w-1/2 flex items-center px-10 py-6 gap-10">
@@ -30,12 +30,12 @@ const Navbar = () => {
 
         {/* Left Links */}
         <div className="flex gap-10 text-[10px] font-black uppercase tracking-[0.3em] text-slate-900">
-          <Link to="/login" className="group relative cursor-pointer py-1 hover:text-purple-600">
+          <Link to="/outlet" className="group relative cursor-pointer py-1 hover:text-purple-600">
             Shop
             <span className="absolute bottom-0 left-0 h-[1.5px] w-0 bg-purple-400 transition-all duration-300 group-hover:w-full"></span>
           </Link>
 
-          <Link to="/login" className="group relative cursor-pointer py-1 hover:text-purple-600">
+          <Link to="/collections" className="group relative cursor-pointer py-1 hover:text-purple-600">
             Collection
             <span className="absolute bottom-0 left-0 h-[1.5px] w-0 bg-purple-400 transition-all duration-300 group-hover:w-full"></span>
           </Link>
