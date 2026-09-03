@@ -1,6 +1,8 @@
 package com.Ecomm.prj.Dto;
 
 import com.Ecomm.prj.Model.Role;
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 
 @Getter
@@ -12,6 +14,8 @@ public class SignupDto {
         this.role = role;
     }
 
+    @JsonProperty("requestedRole")
+    @JsonAlias({"role"})
     private Role role;
 
     public void setPassword(String password) {

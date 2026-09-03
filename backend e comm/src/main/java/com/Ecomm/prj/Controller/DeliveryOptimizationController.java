@@ -1,15 +1,8 @@
 package com.Ecomm.prj.Controller;
 
-import com.Ecomm.prj.Dto.DeliveryOptimizationRequest;
 import com.Ecomm.prj.Dto.DeliveryOptimizationResponse;
-import com.Ecomm.prj.Model.Merchant;
-import com.Ecomm.prj.Model.User;
 import com.Ecomm.prj.Service.DeliveryOptimizationService;
-import com.Ecomm.prj.repository.MerchantRepo;
-import com.Ecomm.prj.repository.UserRepo;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -18,28 +11,33 @@ import org.springframework.web.server.ResponseStatusException;
 @CrossOrigin(origins = "http://localhost:5173")
 public class DeliveryOptimizationController {
 
-    private final DeliveryOptimizationService optimizationService;
-    private final UserRepo userRepo;
-    private final MerchantRepo merchantRepo;
+    private final DeliveryOptimizationService deliveryOptimizationService;
 
     public DeliveryOptimizationController(
-            DeliveryOptimizationService optimizationService,
-            UserRepo userRepo,
-            MerchantRepo merchantRepo) {
+            DeliveryOptimizationService deliveryOptimizationService) {
 
-        this.optimizationService = optimizationService;
-        this.userRepo = userRepo;
-        this.merchantRepo = merchantRepo;
+        this.deliveryOptimizationService = deliveryOptimizationService;
     }
 
-    @PostMapping("/{deliveryId}/optimize")
+    @PostMapping("/optimize/{deliveryId}")
     public ResponseEntity<DeliveryOptimizationResponse> optimizeDelivery(
             @PathVariable Long deliveryId) {
 
         return ResponseEntity.ok(
-                optimizationService.optimizeDelivery(
-                        deliveryId
-                )
+                deliveryOptimizationService.optimizeDelivery(deliveryId)
         );
+    }
+
+    @ExceptionHandler(ResponseStatusException.class)
+    public ResponseEntity<?> handleResponseStatusException(
+            ResponseStatusException ex) {
+
+        return ResponseEntity
+                .status(ex.getStatusCode())
+                .body(
+                        java.util.Map.of(
+                                "error", ex.getReason()
+                        )
+                );
     }
 }

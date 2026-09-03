@@ -3,13 +3,10 @@ package com.Ecomm.prj.Controller;
 import com.Ecomm.prj.Model.Product;
 import com.Ecomm.prj.Service.ProductService;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -40,5 +37,15 @@ public class ProductController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Category is required");
         }
         return productService.getProductsByCategory(category.trim());
+    }
+    @GetMapping("/search")
+    public List<Product> searchProducts(
+            @RequestParam String category,
+            @RequestParam BigDecimal maxPrice) {
+
+        return productService.getProductsByCategoryAndMaxPrice(
+                category,
+                maxPrice
+        );
     }
 }

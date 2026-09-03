@@ -164,5 +164,32 @@ public class MerchantOrderController {
         // 5. Return created delivery
         return ResponseEntity.ok(delivery);
     }
+    @PutMapping("/{orderId}/deliver")
+    public ResponseEntity<?> markAsDelivered(
+            @PathVariable int orderId,
+            Authentication authentication) {
 
+        String email = authentication.getName();
+
+        User user = userRepo.findByEmail(email)
+                .orElseThrow(() ->
+                        new ResponseStatusException(
+                                HttpStatus.NOT_FOUND,
+                                "User not found"
+                        ));
+
+        Merchant merchant = merchantRepo.findByUserId(user.getId())
+                .orElseThrow(() ->
+                        new ResponseStatusException(
+                                HttpStatus.NOT_FOUND,
+                                "Merchant profile not found"
+                        ));
+
+        Delivery delivery = deliveryService.markAsDelivered(
+                orderId,
+                merchant
+        );
+
+        return ResponseEntity.ok(delivery);
+    }
 }

@@ -1,11 +1,14 @@
 package com.Ecomm.prj.Dto;
 
+import com.Ecomm.prj.Model.Role;
+
 public class LoginResponseDto {
 
     private Long id;
     private String username;
     private String email;
     private String token;
+    private Role role;
 
     public LoginResponseDto() {
     }
@@ -16,11 +19,18 @@ public class LoginResponseDto {
         this.email = email;
     }
 
-    public LoginResponseDto(Long id, String username, String email, String token) {
+    public LoginResponseDto(
+            Long id,
+            String username,
+            String email,
+            String token,
+            Role role) {
+
         this.id = id;
         this.username = username;
         this.email = email;
         this.token = token;
+        this.role = role;
     }
 
     public Long getId() {
@@ -53,5 +63,13 @@ public class LoginResponseDto {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }
