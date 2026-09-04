@@ -23,7 +23,7 @@ const[loading,setloading]=useState(true);
    const fetchWomenProducts = async () => {
      try {
      const response = await fetch(
-        'http://localhost:8081/api/products/category/WOMEN'
+        ' http://localhost:8081/api/products/gender/WOMEN'
      );
   
      const data = await response.json();
@@ -46,15 +46,10 @@ const[loading,setloading]=useState(true);
     </div>
   );
 }
-    const imageMap = {
-    "dress.jpg": dress,
-    "skirt.jpg": skirt,
-    "gown.jpg": gown,
-    "streetwomen.jpg": streetwomen
-  };
+   
   const productsWithImages = products.map(product => ({
     ...product,
-    img: imageMap[product.imageUrl]
+    img: product.imageUrl
   }));
   return (
     <div className="w-full bg-[#FFFFF0]">

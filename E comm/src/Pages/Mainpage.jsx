@@ -4,7 +4,6 @@ import Hero from '../Components/Hero'
 import Categories from '../Components/Categories'
 import Products from '../Components/Products'
 import Footer from '../Components/Footer'
-import Chat from '../Components/Chatbot/Chat'
 import TopBrands from '../Components/Brands'
 const Mainpage = () => {
   return (
@@ -23,7 +22,6 @@ const Mainpage = () => {
       </div>
       <div >
         <Products />
-        <Chat/>
         <TopBrands />
       </div>
        

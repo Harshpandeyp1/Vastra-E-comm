@@ -1,8 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import MerchantNavbar from "../Components/merchantNavbar";
-import Chat from "../Components/Chatbot/Chat";
 import axios from "axios";
-
+import MerchantChat from "../Components/Chatbot/MerchantChat";
 import {
   FiShoppingBag,
   FiDollarSign,
@@ -483,9 +482,11 @@ const MerchantDashboard = () => {
             )}
           </div>
         </section>
+        <section>
+          <MerchantChat />
+        </section>
       </main>
 
-      <Chat />
     </div>
   );
 };

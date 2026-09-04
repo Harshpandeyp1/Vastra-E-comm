@@ -23,7 +23,7 @@ useEffect(()=>{
 const fetchKidsProducts=async()=>{
   try{
     const response=await fetch(
-       'http://localhost:8081/api/products/category/KIDS'
+       ' http://localhost:8081/api/products/gender/KIDS'
    );
   
 const data=await response.json();
@@ -44,15 +44,10 @@ setproducts(data);
     </div>
   );
 }
-    const imageMap = {
-    "kidjacket.jpg": kidjacket,
-    "kidskirt.jpg": kidskirt,
-    "kidhoodie.jpg": kidhodie,
-    "kidstreet.jpg": kidstreet
-  };
+  
 const productsWithImages = products.map(product => ({
   ...product,
-  img: imageMap[product.imageUrl]
+  img: product.imageUrl
 }));
 
   return (

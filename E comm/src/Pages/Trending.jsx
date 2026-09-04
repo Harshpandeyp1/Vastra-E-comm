@@ -23,7 +23,7 @@ useEffect(() => {
   // ✅ ADD IDs + FIX PRICE TYPE
   const fetchTrendingProducts = async () => {
     try {
-      const response = await fetch('http://localhost:8081/api/products/category/TRENDING');
+      const response = await fetch(' http://localhost:8081/api/products/gender/UNISEX');
       const data = await response.json();
       setproducts(data);
     } catch (error) {
@@ -42,15 +42,10 @@ useEffect(() => {
     </div>
   );
 }
-  const imageMap = {
-  "cord.jpg": cord,
-  "hoodie.jpg": hodie,
-  "track.jpg": track,
-  "jacket.jpg": jacket
-};
+  
 const productsWithImages = products.map(product => ({
   ...product,
-  img: imageMap[product.imageUrl]
+  img: product.imageUrl
 }));
 
 

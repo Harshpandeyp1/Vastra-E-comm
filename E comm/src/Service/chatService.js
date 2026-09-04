@@ -1,24 +1,39 @@
 
-import axios from "axios";
-
 const API = "http://localhost:8081/chat";
 
-export const sendMessage = async (message) => {
-    const token = localStorage.getItem("token");
+export const sendMessage = async (messagesHistory) => {
+  const token = localStorage.getItem("token");
 
-    const response = await axios.post(
-        API,
-        {
-            message: message
-        },
-        {
-            headers: {
-                Authorization: `Bearer ${token}`,
-                "Content-Type": "application/json"
-            }
-        }
+  const payload =
+    typeof messagesHistory === "string"
+      ? { message: messagesHistory }
+      : { messages: messagesHistory };
+
+  const response = await fetch(API, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      ...(token
+        ? { Authorization: `Bearer ${token}` }
+        : {}),
+    },
+    body: JSON.stringify(payload),
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(
+      errorText || `Chat API error: ${response.status}`
     );
+  }
 
-    return response.data;
+  const data = await response.json();
+
+  return (
+    data.reply ||
+    (typeof data === "string"
+      ? data
+      : JSON.stringify(data))
+  );
 };
 

@@ -24,7 +24,7 @@ const Men = () => {
   const fetchMenProducts = async () => {
    try {
    const response = await fetch(
-      'http://localhost:8081/api/products/category/MEN'
+      'http://localhost:8081/api/products/gender/MEN'
    );
 
    const data = await response.json();
