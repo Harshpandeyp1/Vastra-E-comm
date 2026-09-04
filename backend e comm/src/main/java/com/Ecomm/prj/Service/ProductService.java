@@ -9,6 +9,10 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
+import com.Ecomm.prj.Dto.ProductCatalogResponse;
+import com.Ecomm.prj.Dto.ProductDto;
 
 @Service
 public class ProductService {
@@ -32,6 +36,23 @@ public class ProductService {
 
     public List<Product> getProductsByCategory(String category) {
         return productRepository.findByCategory(category);
+    }
+
+    public List<Product> getProductsByGender(String gender) {
+        return productRepository.findByGenderIgnoreCase(gender);
+    }
+
+    public List<Product> getTrendingProducts() {
+        return productRepository.findTop6ByOrderByIdDesc();
+    }
+
+    public ProductCatalogResponse getProductCatalog() {
+        return new ProductCatalogResponse(
+                mapToDtoList(getProductsByGender("MEN")),
+                mapToDtoList(getProductsByGender("WOMEN")),
+                mapToDtoList(getProductsByGender("KIDS")),
+                mapToDtoList(getTrendingProducts())
+        );
     }
 
     public Optional<Product> getProductById(Long id) {
@@ -121,5 +142,17 @@ public class ProductService {
                         category,
                         maxPrice
                 );
+    }
+
+    private List<ProductDto> mapToDtoList(List<Product> products) {
+        return products.stream()
+                .map(p -> new ProductDto(
+                        p.getId(),
+                        p.getName(),
+                        p.getPrice() != null ? p.getPrice().doubleValue() : null,
+                        p.getImageUrl(),
+                        p.getCategory()
+                ))
+                .collect(Collectors.toList());
     }
 }
