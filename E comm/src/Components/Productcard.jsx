@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { ShoppingCart, Heart } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
+import { Heart } from 'lucide-react'
 import {
   addToWishlist,
   removeFromWishlist,
@@ -8,6 +9,7 @@ import {
 import { addToCart } from "../Service/Cart";
 
 const Productcard = ({ item }) => {
+  const navigate = useNavigate();
   const [added, setAdded] = useState(false);
   const [isWishlisted, setIsWishlisted] = useState(false);
   const [wishlistItemId, setWishlistItemId] = useState(null);
@@ -38,7 +40,8 @@ const Productcard = ({ item }) => {
     loadWishlist();
   }, [item.id]);
 
-  const handleWishlist = async () => {
+  const handleWishlist = async (e) => {
+    e.stopPropagation(); // Prevents navigating to product page when clicking heart
     const user = JSON.parse(localStorage.getItem("user") || "null");
     const userId = user?.id;
     const token = localStorage.getItem("token");
@@ -67,35 +70,44 @@ const Productcard = ({ item }) => {
     }
   };
 
-  const handleCart = async () => {
-  const user = JSON.parse(localStorage.getItem("user") || "null");
-  const userId = user?.id;
-  const token = localStorage.getItem("token");
+  const handleCart = async (e) => {
+    e.stopPropagation(); // Prevents navigating to product page when clicking Add to Cart
+    const user = JSON.parse(localStorage.getItem("user") || "null");
+    const userId = user?.id;
+    const token = localStorage.getItem("token");
 
-  if (!userId || !token) {
-    setAuthMessage("Please log in first to add items to the cart.");
-    return;
-  }
+    if (!userId || !token) {
+      setAuthMessage("Please log in first to add items to the cart.");
+      return;
+    }
 
-  const cartData = {
-    userId,
-    productId: item.id,
-    quantity: 1,
+    const cartData = {
+      userId,
+      productId: item.id,
+      quantity: 1,
+    };
+
+    try {
+      await addToCart(cartData);
+      setAdded(true);
+      setTimeout(() => setAdded(false), 1500);
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+    }
   };
 
-  try {
-    await addToCart(cartData);
-    setAdded(true);
-    setTimeout(() => setAdded(false), 1500);
-  } catch (error) {
-    console.error("Error adding to cart:", error);
-  }
-};
+  const handleCardClick = () => {
+    if (item?.id) {
+      navigate(`/product/${item.id}`);
+    }
+  };
 
   return (
-    <div className="group flex flex-col cursor-pointer">
-
-      {/* Image */}
+    <div 
+      onClick={handleCardClick}
+      className="group flex flex-col cursor-pointer"
+    >
+      {/* Image Container */}
       <div className="relative aspect-3/4 rounded-3xl bg-purple-100 overflow-hidden">
 
         {/* Tag */}
@@ -105,8 +117,9 @@ const Productcard = ({ item }) => {
           </span>
         )}
 
-        {/* ❤️ Wishlist */}
+        {/* Wishlist Button */}
         <button
+          type="button"
           onClick={handleWishlist}
           className={`absolute top-4 right-4 z-10 p-2 bg-white rounded-full transition ${
             isWishlisted ? "text-red-500" : "text-slate-400"
@@ -121,15 +134,15 @@ const Productcard = ({ item }) => {
 
         {/* Image */}
         <img
-          src={item.img}
+          src={item.img || item.imageUrl}
           alt={item.name}
           className="w-full h-full object-contain p-6 group-hover:scale-110 transition duration-500"
         />
 
-        {/* Add to cart */}
+        {/* Add to Cart Button */}
         <div className="absolute inset-x-4 bottom-4 translate-y-12 group-hover:translate-y-0 transition">
-
           <button
+            type="button"
             onClick={handleCart}
             className={`w-full py-2 rounded-xl text-sm transition ${
               added ? "bg-purple-500 text-white" : "bg-black text-white"
@@ -137,7 +150,6 @@ const Productcard = ({ item }) => {
           >
             {added ? "Added ✓" : "Add to Cart"}
           </button>
-
         </div>
       </div>
 
@@ -147,14 +159,13 @@ const Productcard = ({ item }) => {
 
       {/* Details */}
       <div className="mt-4">
-        <h4 className="font-bold text-slate-800 group-hover:text-purple-600">
+        <h4 className="font-bold text-slate-800 group-hover:text-purple-600 transition-colors">
           {item.name}
         </h4>
-        <p className="font-semibold">₹{item.price}</p>
+        <p className="font-semibold text-slate-900 mt-0.5">₹{item.price}</p>
       </div>
-
     </div>
   )
 }
 
-export default Productcard
+export default Productcard;
