@@ -23,7 +23,9 @@ import MerchantDashboard from "./Pages/MerchantDashboard";
 import MerchantOrders from "./Pages/MerchantOrders";
 import MerchantProducts from "./Pages/MerchantProducts";
 import MerchantPending from "./Pages/MerchantPending";
+import ProductDetail from "./Pages/ProductDetail";
 import MerchantDeliveries from "./Pages/MerchantDeliveries";
+import Chat from "./Components/Chatbot/Chat";
 function ScrollToTop(){
   const { pathname } = useLocation();
 
@@ -34,10 +36,25 @@ function ScrollToTop(){
   return null;
 }
 
+function GlobalChat() {
+  const { pathname } = useLocation();
+
+  if (
+    pathname === "/" ||
+    pathname === "/login" ||
+    pathname.startsWith("/merchant")
+  ) {
+    return null;
+  }
+
+  return <Chat />;
+}
+
 function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
+      <GlobalChat />
      <Routes>
 
   {/* Public Routes */}
@@ -157,6 +174,14 @@ function App() {
     element={
       <ProtectedRoute allowedRoles={["USER"]}>
         <Order />
+      </ProtectedRoute>
+    }
+  />
+  <Route
+    path="/product/:id"
+    element={
+      <ProtectedRoute allowedRoles={["USER"]}>
+        < ProductDetail/>
       </ProtectedRoute>
     }
   />
