@@ -2,6 +2,7 @@ package com.Ecomm.prj.Controller;
 
 import com.Ecomm.prj.Model.Product;
 import com.Ecomm.prj.Service.ProductService;
+import com.Ecomm.prj.Dto.ProductCatalogResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -38,6 +39,20 @@ public class ProductController {
         }
         return productService.getProductsByCategory(category.trim());
     }
+
+    @GetMapping("/gender/{gender}")
+    public List<Product> getProductsByGender(@PathVariable String gender) {
+        if (gender == null || gender.isBlank()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Gender is required");
+        }
+        return productService.getProductsByGender(gender.trim());
+    }
+
+    @GetMapping("/catalog")
+    public ProductCatalogResponse getProductCatalog() {
+        return productService.getProductCatalog();
+    }
+
     @GetMapping("/search")
     public List<Product> searchProducts(
             @RequestParam String category,
