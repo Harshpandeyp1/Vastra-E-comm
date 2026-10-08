@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import login from '../assets/login.jpg'
-import { Mail, Lock, User } from 'lucide-react';
+import { Eye, EyeOff, Mail, Lock, User } from 'lucide-react';
 import Footer from '../Components/Footer';
 import { saveProfile } from '../Service/Profile';
 
 const Login = () => {
   const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(true);
+  const [showPassword, setShowPassword] = useState(false);
   const [uiError, setUiError] = useState('');
   const [uiMessage, setUiMessage] = useState('');
   const [formData, setFormData] = useState({
@@ -80,7 +81,10 @@ const handleLogin = async () => {
     if (response.ok) {
 
       const authToken = data.token || data.accessToken || data.jwt || "authenticated";
-
+       if (!data.token) {
+            setUiError("Login succeeded but no authentication token was received.");
+            return;
+        }
       // Save JWT Token
       localStorage.setItem("token", authToken);
       localStorage.setItem("isLoggedIn", "true");
@@ -266,14 +270,23 @@ const handleLogin = async () => {
               <div className="group relative">
                 <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 group-focus-within:text-purple-400 transition-colors" />
                 <input
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   name="password"
                   required
                   value={formData.password}
                   onChange={handleChange}
                   placeholder="Password"
-                  className="w-full pl-11 pr-4 py-3.5 bg-black/30 border border-white/10 rounded-2xl text-white placeholder-gray-600 focus:outline-none focus:border-purple-500 focus:bg-black/50 transition-all text-sm"
+                  className="w-full pl-11 pr-12 py-3.5 bg-black/30 border border-white/10 rounded-2xl text-white placeholder-gray-600 focus:outline-none focus:border-purple-500 focus:bg-black/50 transition-all text-sm"
                 />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword((visible) => !visible)}
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                  aria-pressed={showPassword}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-purple-400 transition-colors"
+                >
+                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
               </div>
 
               <button
