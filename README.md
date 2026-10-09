@@ -12,7 +12,7 @@ The project is built using **React, Spring Boot, Spring AI, MySQL, Spring Securi
 
 ---
 
-## Table of Contents
+## Table of Contents..
 
 * [Overview](#overview)
 * [Problem Statement](#problem-statement)
