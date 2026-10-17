@@ -2,6 +2,7 @@ package com.Ecomm.prj.Security;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
@@ -11,28 +12,33 @@ import java.util.Date;
 @Component
 public class JwtUtil {
 
-    private static final String SECRET =
-            "mySuperSecretKeyForJwtAuthentication123456789";
+    @Value("${jwt.secret}")
+    private String secret;
+
     private static final long EXPIRATION_MS = 60L * 60L * 1000L;
 
-    private final SecretKey key = Keys.hmacShaKeyFor(
-            SECRET.getBytes(StandardCharsets.UTF_8)
-    );
+    private SecretKey getKey() {
+        return Keys.hmacShaKeyFor(
+                secret.getBytes(StandardCharsets.UTF_8)
+        );
+    }
 
     public String generateToken(String email) {
         System.out.println("[JwtUtil] Generating token for email = " + email);
+
         return Jwts.builder()
                 .subject(email)
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis() + EXPIRATION_MS))
-                .signWith(key)
+                .signWith(getKey())
                 .compact();
     }
 
     public String extractUsername(String token) {
         System.out.println("[JwtUtil] Extracting username from token");
+
         return Jwts.parser()
-                .verifyWith(key)
+                .verifyWith(getKey())
                 .build()
                 .parseSignedClaims(token)
                 .getPayload()
@@ -41,18 +47,26 @@ public class JwtUtil {
 
     public boolean validateToken(String token, String email) {
         System.out.println("[JwtUtil] Validating token for email = " + email);
+
         String username = extractUsername(token);
+
         boolean valid = username != null
                 && username.equals(email)
                 && !isTokenExpired(token);
-        System.out.println("[JwtUtil] Validation result = " + valid + ", token subject = " + username);
+
+        System.out.println(
+                "[JwtUtil] Validation result = " + valid +
+                        ", token subject = " + username
+        );
+
         return valid;
     }
 
     public boolean isTokenExpired(String token) {
         System.out.println("[JwtUtil] Checking token expiration");
+
         return Jwts.parser()
-                .verifyWith(key)
+                .verifyWith(getKey())
                 .build()
                 .parseSignedClaims(token)
                 .getPayload()
