@@ -1,0 +1,70 @@
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.3.0)
+
+2026-09-03T23:06:52.774+05:30  INFO 19956 --- [           main] com.Ecomm.prj.PrjApplication             : Starting PrjApplication using Java 24.0.2 with PID 19956 (C:\Users\HARSH PANDEY\Desktop\codes\Springboot\backend e comm\target\classes started by HARSH PANDEY in C:\Users\HARSH PANDEY\Desktop\codes\Springboot\backend e comm)
+2026-09-03T23:06:52.780+05:30  INFO 19956 --- [           main] com.Ecomm.prj.PrjApplication             : No active profile set, falling back to 1 default profile: "default"
+2026-09-03T23:06:54.137+05:30  INFO 19956 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-09-03T23:06:54.619+05:30  INFO 19956 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 465 ms. Found 9 JPA repository interfaces.
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by org.apache.tomcat.jni.Library in an unnamed module (file:/C:/Users/HARSH%20PANDEY/.m2/repository/org/apache/tomcat/embed/tomcat-embed-core/10.1.24/tomcat-embed-core-10.1.24.jar)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+2026-09-03T23:06:55.984+05:30  INFO 19956 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2026-09-03T23:06:56.019+05:30  INFO 19956 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-09-03T23:06:56.021+05:30  INFO 19956 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.24]
+2026-09-03T23:06:56.263+05:30  INFO 19956 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-09-03T23:06:56.269+05:30  INFO 19956 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3407 ms
+2026-09-03T23:06:56.620+05:30  INFO 19956 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-09-03T23:06:56.759+05:30  INFO 19956 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2026-09-03T23:06:56.854+05:30  INFO 19956 --- [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-09-03T23:06:57.676+05:30  INFO 19956 --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-09-03T23:06:57.776+05:30  INFO 19956 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-09-03T23:06:58.668+05:30  INFO 19956 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@11f3400c
+2026-09-03T23:06:58.678+05:30  INFO 19956 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-09-03T23:07:02.646+05:30  INFO 19956 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-09-03T23:07:02.938+05:30  INFO 19956 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-09-03T23:07:06.189+05:30  INFO 19956 --- [           main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+[SecurityConfig] Creating PasswordEncoder
+[SecurityConfig] Creating AuthenticationProvider
+2026-09-03T23:07:08.098+05:30  INFO 19956 --- [           main] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2026-09-03T23:07:08.101+05:30  WARN 19956 --- [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used for username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider.
+[SecurityConfig] Building SecurityFilterChain
+[SecurityConfig] JWT filter added before UsernamePasswordAuthenticationFilter
+[SecurityConfig] Creating CORS configuration
+2026-09-03T23:07:08.868+05:30  INFO 19956 --- [           main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@ddf8b1d, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@18e0c618, org.springframework.security.web.context.SecurityContextHolderFilter@b692323, org.springframework.security.web.header.HeaderWriterFilter@bdb997f, org.springframework.web.filter.CorsFilter@32002a21, org.springframework.security.web.authentication.logout.LogoutFilter@5581f3e3, com.Ecomm.prj.Security.JwtFilter@2b8b5d9e, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@c1aa8f9, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@53f40ead, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@b13c600, org.springframework.security.web.session.SessionManagementFilter@3c650ad2, org.springframework.security.web.access.ExceptionTranslationFilter@4f407424, org.springframework.security.web.access.intercept.AuthorizationFilter@5018b648]
+[SecurityConfig] Creating AuthenticationManager
+2026-09-03T23:07:10.009+05:30  WARN 19956 --- [           main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2026-09-03T23:07:10.019+05:30  INFO 19956 --- [           main] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-09-03T23:07:10.025+05:30  INFO 19956 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-09-03T23:07:10.055+05:30  INFO 19956 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-09-03T23:07:10.094+05:30  INFO 19956 --- [           main] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-09-03T23:07:10.174+05:30 ERROR 19956 --- [           main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8081 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8081 or configure this application to listen on another port.
+
+[ERROR] Failed to execute goal org.springframework.boot:spring-boot-maven-plugin:3.3.0:run (default-cli) on project prj: Process terminated with exit code: 1 -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException
