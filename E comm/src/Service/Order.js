@@ -1,8 +1,9 @@
 
 
 import axios from 'axios'
+import { apiUrl } from "../config/api";
 
-const API ='http://localhost:8081/order'
+const API = apiUrl("order")
 
 export const placeOrder = async (orderData) => {
   try {

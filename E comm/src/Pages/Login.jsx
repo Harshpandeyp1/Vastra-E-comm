@@ -4,6 +4,7 @@ import login from '../assets/login.jpg'
 import { Eye, EyeOff, Mail, Lock, User } from 'lucide-react';
 import Footer from '../Components/Footer';
 import { saveProfile } from '../Service/Profile';
+import { apiUrl } from "../config/api";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -31,7 +32,7 @@ const handleSignup = async () => {
     setUiError("");
     setUiMessage("");
 
-    const response = await fetch("http://localhost:8081/api/auth/signup", {
+    const response = await fetch(apiUrl("api/auth/signup"), {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -65,7 +66,7 @@ const handleLogin = async () => {
   username: formData.username,
   password: formData.password,
 });
-    const response = await fetch("http://localhost:8081/api/auth/login", {
+    const response = await fetch(apiUrl("api/auth/login"), {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

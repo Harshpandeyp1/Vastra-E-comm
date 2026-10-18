@@ -1,5 +1,7 @@
 
-const API = "http://localhost:8081/chat";
+import { apiUrl } from "../config/api";
+
+const API = apiUrl("chat");
 
 export const sendMessage = async (messagesHistory) => {
   const token = localStorage.getItem("token");
@@ -36,4 +38,3 @@ export const sendMessage = async (messagesHistory) => {
       : JSON.stringify(data))
   );
 };
-

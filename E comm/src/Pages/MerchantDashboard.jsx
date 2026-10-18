@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import MerchantNavbar from "../Components/merchantNavbar";
 import axios from "axios";
+import { apiUrl } from "../config/api";
 import MerchantChat from "../Components/Chatbot/MerchantChat";
 import {
   FiShoppingBag,
@@ -17,7 +18,7 @@ import {
   FiPercent,
 } from "react-icons/fi";
 
-const API_BASE_URL = "http://localhost:8081/api/merchant";
+const API_BASE_URL = apiUrl("api/merchant");
 
 const MerchantDashboard = () => {
   const [dashboardData, setDashboardData] = useState({

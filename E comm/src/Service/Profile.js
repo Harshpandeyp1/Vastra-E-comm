@@ -1,7 +1,8 @@
 import axios from "axios";
+import { apiUrl } from "../config/api";
 
 const StorageKey = "profile";
-const baseUrl = "http://localhost:8081/user";
+const baseUrl = apiUrl("user");
 
 export const saveProfile = (userData) => {
     localStorage.setItem(StorageKey, JSON.stringify(userData));

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import MerchantNavbar from "../Components/merchantNavbar";
+import { apiUrl } from "../config/api";
 const MerchantProfile = () => {
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -20,7 +21,7 @@ const MerchantProfile = () => {
     try {
       const token = localStorage.getItem("token");
 
-      const response = await fetch("http://localhost:8081/api/merchant/profile", {
+      const response = await fetch(apiUrl("api/merchant/profile"), {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -79,7 +80,7 @@ const MerchantProfile = () => {
 
       const token = localStorage.getItem("token");
 
-      const response = await fetch("http://localhost:8081/api/merchant/profile", {
+      const response = await fetch(apiUrl("api/merchant/profile"), {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

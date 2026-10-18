@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { API_BASE_URL } from "../config/api";
 
-const API_BASE = import.meta.env?.VITE_API_URL ?? "http://localhost:8081";
 const REFRESH_MS = 30_000;
 const PAGE_SIZE = 10;
 const BUCKETS = 12;
@@ -72,7 +72,7 @@ const AdminDashboard = () => {
                 }
 
                 const response = await fetch(
-                    `${API_BASE}/api/admin/login-activity?hours=${selectedHours}`,
+                    `${API_BASE_URL}/api/admin/login-activity?hours=${selectedHours}`,
                     {
                         method: "GET",
                         headers: { Authorization: `Bearer ${token}` },

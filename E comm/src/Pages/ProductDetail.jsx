@@ -7,6 +7,7 @@ import { addToCart } from "../Service/Cart";
 import { addToWishlist } from "../Service/Wishlist";
 import { getProfile } from "../Service/Profile";
 import { getImageUrl } from "../utils/imageHelpers";
+import { apiUrl } from "../config/api";
 import { FiShoppingBag, FiHeart, FiZap, FiArrowLeft } from "react-icons/fi";
 
 const PLACEHOLDER_IMG =
@@ -21,7 +22,7 @@ const ProductDetail = () => {
   // Refetches whenever the URL ID changes
   useEffect(() => {
     setLoading(true);
-    fetch(`http://localhost:8081/api/products/${id}`)
+    fetch(apiUrl(`api/products/${id}`))
       .then((res) => {
         if (!res.ok) throw new Error("Product fetch failed");
         return res.json();

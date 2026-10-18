@@ -12,6 +12,7 @@ import AutoScroller from '../Components/AutoScroller'
 import Productcard from '../Components/Productcard'
 import Footer from '../Components/Footer'
 import kidsection from '../assets/kidsection.jpg'
+import { apiUrl } from "../config/api";
 
 const Kids = () => {
 const[products,setproducts]=useState([]);
@@ -23,7 +24,7 @@ useEffect(()=>{
 const fetchKidsProducts=async()=>{
   try{
     const response=await fetch(
-       ' http://localhost:8081/api/products/gender/KIDS'
+       apiUrl("api/products/gender/KIDS")
    );
   
 const data=await response.json();

@@ -12,6 +12,7 @@ import jacket from '../assets/jacket.jpg'
 import shirt from '../assets/shirt.jpg'
 import hodie from '../assets/hodie.jpg'
 import streetmen from '../assets/streetmen.jpg'
+import { apiUrl } from "../config/api";
 
 const Men = () => {
   const [products,setproducts] =useState([]);
@@ -24,7 +25,7 @@ const Men = () => {
   const fetchMenProducts = async () => {
    try {
    const response = await fetch(
-      'http://localhost:8081/api/products/gender/MEN'
+      apiUrl("api/products/gender/MEN")
    );
 
    const data = await response.json();

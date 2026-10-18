@@ -1,7 +1,7 @@
 
+import { apiUrl } from "../config/api";
 
-const BASE_URL = "http://localhost:8081/wishlist";
-console.log("Wishlist API:", BASE_URL);
+const BASE_URL = apiUrl("wishlist");
 export const addToWishlist = async (
   userId,
   productId
@@ -23,7 +23,7 @@ export const getWishlist = async (userId) => {
     const token = localStorage.getItem("token");
 
     const response = await fetch(
-        `http://localhost:8081/wishlist/${userId}`,
+        `${BASE_URL}/${userId}`,
         {
             headers: {
                 Authorization: `Bearer ${token}`,

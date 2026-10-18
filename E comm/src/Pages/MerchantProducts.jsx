@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import MerchantNavbar from "../Components/merchantNavbar";
 import axios from "axios";
+import { apiUrl } from "../config/api";
 import {
   FiPackage,
   FiPlus,
@@ -12,7 +13,7 @@ import {
   FiX
 } from "react-icons/fi";
 
-const API_BASE_URL = "http://localhost:8081/api/merchant";
+const API_BASE_URL = apiUrl("api/merchant");
 
 const CATEGORY_OPTIONS = ["MEN", "WOMEN", "KIDS", "TRENDING"];
 

@@ -6,6 +6,7 @@ import Navbar from '../Components/Navbar'
 import Footer from '../Components/Footer'
 import Productcard from '../Components/Productcard'
 import { FaInstagram, FaFacebook, FaTwitter, FaWhatsapp } from 'react-icons/fa'
+import { apiUrl } from "../config/api";
 
 const Landing = () => {
   const [products, setProducts] = useState([])
@@ -20,7 +21,7 @@ const Landing = () => {
 
   const fetchHomeProducts = async () => {
     try {
-      const response = await fetch('http://localhost:8081/api/home')
+      const response = await fetch(apiUrl("api/home"))
       const data = await response.json()
       
       const trendingsList = data.trendings || data || []

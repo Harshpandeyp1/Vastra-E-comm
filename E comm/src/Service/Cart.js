@@ -1,5 +1,6 @@
-// src/Service/Cart.js
-const API_BASE = "http://localhost:8081";
+import { apiUrl } from "../config/api";
+
+const API_BASE = apiUrl("");
 
 const getHeaders = () => {
   const token = localStorage.getItem("token");

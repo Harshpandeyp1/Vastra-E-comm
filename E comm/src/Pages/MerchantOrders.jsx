@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import MerchantNavbar from "../Components/merchantNavbar";
+import { apiUrl } from "../config/api";
 
 const statusStyles = {
   PLACED: "bg-yellow-500/10 text-yellow-400 border border-yellow-500/20",
@@ -22,7 +23,7 @@ const MerchantOrders = () => {
       setLoading(true);
       setError("");
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:8081/api/merchant/orders", {
+      const response = await fetch(apiUrl("api/merchant/orders"), {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -53,7 +54,7 @@ const MerchantOrders = () => {
       const token = localStorage.getItem("token");
 
       const response = await fetch(
-        `http://localhost:8081/api/merchant/orders/${orderId}/${endpointAction}`,
+        apiUrl(`api/merchant/orders/${orderId}/${endpointAction}`),
         {
           method: "PUT",
           headers: {

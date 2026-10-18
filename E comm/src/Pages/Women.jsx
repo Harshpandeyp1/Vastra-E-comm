@@ -12,6 +12,7 @@ import WomenSection from '../assets/WomenSection.jpg'
 import AutoScroller from '../Components/AutoScroller'
 import Productcard from '../Components/Productcard'
 import Footer from '../Components/Footer'
+import { apiUrl } from "../config/api";
 
 const Women = () => {
 const [products,setproducts]=useState([]);
@@ -23,7 +24,7 @@ const[loading,setloading]=useState(true);
    const fetchWomenProducts = async () => {
      try {
      const response = await fetch(
-        ' http://localhost:8081/api/products/gender/WOMEN'
+        apiUrl("api/products/gender/WOMEN")
      );
   
      const data = await response.json();

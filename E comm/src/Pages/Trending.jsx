@@ -12,6 +12,7 @@ import AutoScroller from '../Components/AutoScroller'
 import Productcard from '../Components/Productcard'
 import Footer from '../Components/Footer'
 import Trending from '../assets/trending.jpg'
+import { apiUrl } from "../config/api";
 
 const Trendings = () => {
   const [products,setproducts] =useState([]);
@@ -23,7 +24,7 @@ useEffect(() => {
   // ✅ ADD IDs + FIX PRICE TYPE
   const fetchTrendingProducts = async () => {
     try {
-      const response = await fetch(' http://localhost:8081/api/products/gender/UNISEX');
+      const response = await fetch(apiUrl("api/products/gender/UNISEX"));
       const data = await response.json();
       setproducts(data);
     } catch (error) {

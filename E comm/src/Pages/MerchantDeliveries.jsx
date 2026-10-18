@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import MerchantNavbar from "../Components/merchantNavbar";
+import { apiUrl } from "../config/api";
 import {
   FiPackage,
   FiTruck,
@@ -12,7 +13,7 @@ import {
   FiRefreshCw,
 } from "react-icons/fi";
 
-const API_BASE_URL = "http://localhost:8081/api/merchant";
+const API_BASE_URL = apiUrl("api/merchant");
 
 const formatDate = (date) => {
   if (!date) return "Not assigned";

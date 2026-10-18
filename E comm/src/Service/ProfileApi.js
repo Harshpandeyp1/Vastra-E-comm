@@ -1,7 +1,8 @@
 import axios from "axios";
 import { getProfile, saveProfile } from "./Profile";
+import { apiUrl } from "../config/api";
 
-const API = "http://localhost:8081/user";
+const API = apiUrl("user");
 
 export const getUserProfile = async (id) => {
   const localProfile = getProfile();
