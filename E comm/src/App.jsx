@@ -94,11 +94,7 @@ function App() {
 />
   <Route
     path="/collections"
-    element={
-      <ProtectedRoute allowedRoles={["USER"]}>
-        <Collections />
-      </ProtectedRoute>
-    }
+    element={<Collections />}
   />
 
   <Route
