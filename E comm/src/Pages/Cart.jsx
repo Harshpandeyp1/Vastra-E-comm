@@ -13,6 +13,7 @@ const PLACEHOLDER_IMG = "https://via.placeholder.com/300x400?text=No+Image";
 const Cart = () => {
   const [cart, setCart] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [actionError, setActionError] = useState("");
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user") || "null");
 
@@ -43,11 +44,13 @@ const Cart = () => {
   // Remove item
   const handleRemove = async (item) => {
     try {
+      setActionError("");
       await removeFromCart(item.id);
       const updated = await getCart(user.id);
       setCart(Array.isArray(updated) ? updated : []);
     } catch (err) {
       console.error("Error removing item:", err);
+      setActionError(err.message || "Unable to remove this item. Please try again.");
     }
   };
 
@@ -57,11 +60,13 @@ const Cart = () => {
     if (newQuantity < 1) return;
 
     try {
+      setActionError("");
       await updateQuantity(item.id, newQuantity);
       const updated = await getCart(user.id);
       setCart(Array.isArray(updated) ? updated : []);
     } catch (err) {
       console.error("Error updating quantity:", err);
+      setActionError(err.message || "Unable to update this item. Please try again.");
     }
   };
 
@@ -107,6 +112,15 @@ const Cart = () => {
             </h1>
           </div>
         </div>
+
+        {actionError && (
+          <p
+            role="alert"
+            className="mb-6 rounded-xl border border-red-300 bg-red-50 px-4 py-3 text-sm text-red-700"
+          >
+            {actionError}
+          </p>
+        )}
 
         {cartWithImages.length === 0 ? (
           <div className="h-[40vh] flex flex-col items-center justify-center bg-white/20 backdrop-blur-md rounded-[3rem] border border-white/30">

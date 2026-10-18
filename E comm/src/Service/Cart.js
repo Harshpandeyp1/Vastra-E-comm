@@ -108,18 +108,22 @@ export const addToCart = async (userIdOrProduct, productIdOrQty = 1, quantity = 
 // DELETE /cart/{cartId}
 export const removeFromCart = async (cartItemId) => {
   const cId = extractNumericId(cartItemId);
-  if (!cId) return false;
+  if (!cId) {
+    throw new Error("Cannot remove cart item: invalid cart item ID");
+  }
 
   const response = await fetch(`${API_BASE}/cart/${cId}`, {
     method: "DELETE",
     headers: getHeaders(),
   });
 
-  if (response.ok) {
-    window.dispatchEvent(new CustomEvent("cart-updated"));
+  if (!response.ok) {
+    const error = await response.text();
+    throw new Error(error || `Failed to remove cart item (${response.status})`);
   }
 
-  return response.ok;
+  window.dispatchEvent(new CustomEvent("cart-updated"));
+  return true;
 };
 
 // PUT /cart/{cartId}/{quantity}
@@ -127,7 +131,9 @@ export const updateQuantity = async (cartItemId, quantity) => {
   const cId = extractNumericId(cartItemId);
   const qty = Number(quantity) || 1;
 
-  if (!cId) return false;
+  if (!cId) {
+    throw new Error("Cannot update cart item: invalid cart item ID");
+  }
 
   const response = await fetch(`${API_BASE}/cart/${cId}/${qty}`, {
     method: "PUT",
@@ -135,9 +141,8 @@ export const updateQuantity = async (cartItemId, quantity) => {
   });
 
   if (!response.ok) {
-    const errText = await response.text();
-    console.error("Cart update failed:", errText);
-    return false;
+    const error = await response.text();
+    throw new Error(error || `Failed to update cart item (${response.status})`);
   }
 
   window.dispatchEvent(new CustomEvent("cart-updated"));
