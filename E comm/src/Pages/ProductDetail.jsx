@@ -93,7 +93,7 @@ const ProductDetail = () => {
   return (
     <div className="bg-[#FFFFF0] min-h-screen flex flex-col font-sans">
       <ShopNav />
-      <main className="max-w-5xl mx-auto px-6 py-28 flex-1 w-full">
+      <main className="max-w-5xl mx-auto px-4 sm:px-6 pt-40 lg:pt-32 pb-12 lg:pb-0 flex-1 w-full">
         <button
           onClick={() => navigate(-1)}
           className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-slate-500 hover:text-purple-600 mb-8 cursor-pointer"
@@ -101,7 +101,7 @@ const ProductDetail = () => {
           <FiArrowLeft /> Back
         </button>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center bg-white/70 backdrop-blur-xl p-8 rounded-[2.5rem] border border-white/60 shadow-xl shadow-purple-900/5">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 items-center bg-white/70 backdrop-blur-xl p-4 sm:p-8 rounded-[1.5rem] sm:rounded-[2.5rem] border border-white/60 shadow-xl shadow-purple-900/5">
           {/* Product Image */}
           <div className="aspect-[3/4] rounded-2xl overflow-hidden bg-stone-100 border border-slate-100">
             <img

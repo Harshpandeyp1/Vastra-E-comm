@@ -20,9 +20,9 @@ const handleSearch = (e) => {
   }
 }
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 px-8 py-4">
+    <nav className="fixed top-0 left-0 w-full z-50 px-3 sm:px-6 lg:px-8 py-3 sm:py-4">
       {/* Glassmorphism Container */}
-      <div className="max-w-7xl mx-auto backdrop-blur-md bg-white/70 border border-white/40 shadow-[0_8px_32px_rgba(120,80,180,0.08)] rounded-[2rem] px-8 py-3 flex items-center justify-between transition-all duration-500 hover:shadow-[0_8px_32px_rgba(120,80,180,0.15)]">
+      <div className="max-w-7xl mx-auto backdrop-blur-md bg-white/70 border border-white/40 shadow-[0_8px_32px_rgba(120,80,180,0.08)] rounded-[2rem] px-4 sm:px-6 lg:px-8 py-2 sm:py-3 flex items-center justify-between gap-3 transition-all duration-500 hover:shadow-[0_8px_32px_rgba(120,80,180,0.15)]">
         
         {/* LEFT: Logo Section */}
        <Link to="/main" className="flex items-center gap-4 group cursor-pointer shrink-0">
@@ -90,11 +90,11 @@ const handleSearch = (e) => {
 </ul>
 
         {/* RIGHT: Actions */}
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-3 sm:gap-6">
           
 
           {/* Action Icons */}
-          <div className="flex items-center gap-5 text-slate-700">
+          <div className="flex items-center gap-4 sm:gap-5 text-slate-700">
             <Link to="/wishlist" className="hover:text-purple-600 hover:scale-110 transition-all">
   <Heart className="w-5 h-5" />
 </Link>
@@ -110,6 +110,25 @@ const handleSearch = (e) => {
 </Link>
           </div>
         </div>
+      </div>
+
+      <div className="lg:hidden max-w-7xl mx-auto mt-2 px-3 py-2 flex items-center gap-5 overflow-x-auto rounded-2xl border border-white/40 bg-white/70 backdrop-blur-md text-[10px] font-bold uppercase tracking-wider text-slate-600">
+        {[
+          { label: "Men", path: "/men" },
+          { label: "Women", path: "/women" },
+          { label: "Kids", path: "/kids" },
+          { label: "Trending", path: "/trending" },
+          { label: "Outlet", path: "/outlet" },
+          { label: "Collections", path: "/collections" },
+        ].map((item) => (
+          <Link
+            key={item.path}
+            to={item.path}
+            className="shrink-0 hover:text-purple-600"
+          >
+            {item.label}
+          </Link>
+        ))}
       </div>
     </nav>
   );

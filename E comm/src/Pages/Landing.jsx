@@ -68,17 +68,17 @@ const Landing = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <div className="h-screen flex relative overflow-hidden bg-[#FFFFF0]">
+      <div className="min-h-screen md:h-screen flex flex-col md:flex-row relative overflow-hidden bg-[#FFFFF0]">
         {/* LEFT COLUMN */}
         <div
-          className="w-1/2 flex flex-col justify-center px-16 z-20"
+          className="w-full md:w-1/2 min-h-[62vh] md:min-h-0 flex flex-col justify-center px-6 sm:px-10 md:px-16 pt-24 pb-8 md:py-0 z-20"
           onMouseEnter={() => setActive('left')}
         >
-          <div className="space-y-8">
+          <div className="space-y-6 md:space-y-8">
             <p className="text-[10px] font-black uppercase tracking-[0.5em] text-purple-500">
               Vastra Studio // Premiere
             </p>
-            <h1 className="text-7xl font-light text-slate-900 tracking-tighter leading-[1.1]">
+            <h1 className="text-5xl sm:text-6xl md:text-7xl font-light text-slate-900 tracking-tighter leading-[1.1]">
               Style & <br />
               <span className="font-serif italic text-purple-600 lowercase">Fashion</span>
             </h1>
@@ -102,7 +102,7 @@ const Landing = () => {
 
         {/* RIGHT COLUMN */}
         <div
-          className="w-1/2 bg-purple-900 flex flex-col justify-between items-end px-12 py-16 text-white relative"
+          className="w-full md:w-1/2 min-h-[38vh] md:min-h-0 bg-purple-900 flex flex-row md:flex-col justify-between items-end px-6 sm:px-10 md:px-12 py-5 md:py-16 text-white relative"
           onMouseEnter={() => setActive('right')}
         >
           <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:24px_24px]"></div>
@@ -110,11 +110,11 @@ const Landing = () => {
           <div></div>
 
           <div className="flex flex-col items-center gap-4 mr-2 relative z-20">
-            <span className="text-[9px] uppercase tracking-[0.4em] text-purple-300 [writing-mode:vertical-lr]">Scroll Matrix</span>
-            <div className="w-[1px] h-24 bg-gradient-to-b from-white/60 to-transparent rounded-full"></div>
+            <span className="hidden md:block text-[9px] uppercase tracking-[0.4em] text-purple-300 [writing-mode:vertical-lr]">Scroll Matrix</span>
+            <div className="hidden md:block w-[1px] h-24 bg-gradient-to-b from-white/60 to-transparent rounded-full"></div>
           </div>
 
-          <div className="flex flex-col gap-6 text-lg relative z-20">
+          <div className="flex flex-row md:flex-col gap-5 md:gap-6 text-lg relative z-20">
             <FaInstagram className="cursor-pointer hover:text-purple-300 transition-transform hover:scale-110 duration-300" />
             <FaFacebook className="cursor-pointer hover:text-purple-300 transition-transform hover:scale-110 duration-300" />
             <FaTwitter className="cursor-pointer hover:text-purple-300 transition-transform hover:scale-110 duration-300" />
@@ -123,11 +123,11 @@ const Landing = () => {
         </div>
 
         {/* CINEMATIC LAYERED MODELS */}
-        <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-[700px] h-screen pointer-events-none z-10 flex items-end justify-center overflow-visible">
+        <div className="absolute bottom-0 right-0 md:top-0 md:bottom-0 md:left-1/2 md:right-auto md:-translate-x-1/2 w-1/2 md:w-[700px] h-[38vh] md:h-screen pointer-events-none z-10 flex items-end justify-center overflow-hidden md:overflow-visible">
           <img
             src={model}
             alt="model1"
-            className="absolute bottom-0 h-[112%] max-w-none object-contain transition-all duration-1000 ease-out transform origin-bottom pointer-events-none"
+            className="absolute bottom-0 h-full md:h-[112%] max-w-full md:max-w-none object-contain object-bottom transition-all duration-1000 ease-out transform origin-bottom pointer-events-none"
             style={{
               opacity: active === 'left' ? 1 : 0,
               transform: active === 'left' ? 'translateY(0) scale(1)' : 'translateY(30px) scale(0.98)'
@@ -137,7 +137,7 @@ const Landing = () => {
           <img
             src={model2}
             alt="model2"
-            className="absolute bottom-0 h-[100%] max-w-none object-contain transition-all duration-1000 ease-out transform origin-bottom pointer-events-none"
+            className="absolute bottom-0 h-full max-w-full md:max-w-none object-contain object-bottom transition-all duration-1000 ease-out transform origin-bottom pointer-events-none"
             style={{
               opacity: active === 'right' ? 1 : 0,
               transform: active === 'right' ? 'translateY(0) scale(1)' : 'translateY(30px) scale(0.98)'
@@ -149,14 +149,14 @@ const Landing = () => {
       {/* TRENDING ITEMS GRID SECTION */}
       <section
         ref={collectionRef}
-        className="bg-[#FFFFF0] p-16 rounded-[4rem] border-t border-stone-200/60 scroll-mt-20 max-w-7xl mx-auto"
+        className="bg-[#FFFFF0] p-5 sm:p-10 md:p-16 rounded-[2rem] md:rounded-[4rem] border-t border-stone-200/60 scroll-mt-20 max-w-7xl mx-auto"
       >
-        <div className="flex items-end justify-between mb-16">
+        <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-5 mb-10 md:mb-16">
           <div>
             <p className="text-[10px] font-black uppercase tracking-[0.4em] text-purple-500 mb-2">
               Seasonal Drops // 2026
             </p>
-            <h2 className="text-5xl font-light tracking-tighter text-slate-900">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-light tracking-tighter text-slate-900">
               New <span className="italic text-purple-500 font-serif lowercase">Trendings</span>
             </h2>
           </div>
@@ -169,7 +169,7 @@ const Landing = () => {
         </div>
 
         {/* Product Matrix using standard Productcard like Kids.jsx */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8">
           {productsWithImages.map((item) => (
             <Productcard key={item.id} item={item} />
           ))}

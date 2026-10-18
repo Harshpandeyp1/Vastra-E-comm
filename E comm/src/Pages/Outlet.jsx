@@ -33,20 +33,20 @@ const Outlets = () => [
 ];
 const Outlet = () => {
  return (
-  <div className="min-h-screen bg-gradient-to-r from-purple-200/40 via-indigo-300/30 to-violet-400/40 font-sans">
-    <div className="px-6 md:px-20 py-12">
+  <div className="min-h-screen overflow-hidden bg-gradient-to-r from-purple-200/40 via-indigo-300/30 to-violet-400/40 font-sans">
+    <div className="px-4 sm:px-6 md:px-20 py-12">
       <ShopNav />
 
       {/* Header Sector */}
       <div className="text-center mt-32 mb-24 relative">
         <div className="absolute inset-0 -top-10 flex justify-center items-center opacity-[0.03] select-none pointer-events-none">
-          <h1 className="text-[150px] font-black text-slate-900 tracking-tighter uppercase">Space</h1>
+          <h1 className="text-[24vw] md:text-[150px] font-black text-slate-900 tracking-tighter uppercase">Space</h1>
         </div>
         <div className="relative z-10">
           <p className="text-[10px] font-black uppercase tracking-[0.6em] text-purple-500 mb-4">
             Physical Presence // Global Flagships
           </p>
-          <h1 className="text-5xl md:text-6xl font-light text-slate-900 tracking-tighter uppercase leading-none">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-light text-slate-900 tracking-tighter uppercase leading-none">
             Visit Us <span className="font-serif italic text-purple-600 lowercase">Offline</span>
           </h1>
         </div>
@@ -74,7 +74,7 @@ const Outlet = () => {
             </div>
 
             {/* Information Sector */}
-            <div className="p-10">
+            <div className="p-6 sm:p-10">
               <div className="flex justify-between items-start mb-6">
                 <div>
                   <h2 className="text-2xl font-black italic uppercase tracking-tighter text-slate-900">
@@ -93,14 +93,14 @@ const Outlet = () => {
               </div>
 
               <div className="space-y-4">
-                <div className="flex items-start gap-4">
+                <div className="flex flex-col sm:flex-row items-start gap-2 sm:gap-4">
                   <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-1">Location</span>
-                  <p className="text-sm font-medium text-slate-700 leading-relaxed max-w-[200px]">
+                  <p className="text-sm font-medium text-slate-700 leading-relaxed sm:max-w-[200px]">
                     {outlet.location}
                   </p>
                 </div>
                 
-                <div className="flex items-start gap-4 pt-4 border-t border-purple-900/5">
+                <div className="flex flex-col sm:flex-row items-start gap-2 sm:gap-4 pt-4 border-t border-purple-900/5">
                   <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-1">Contact</span>
                   <p className="text-sm font-mono font-bold text-purple-600">
                     {outlet.contact}

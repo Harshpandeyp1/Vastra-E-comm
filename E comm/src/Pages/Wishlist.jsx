@@ -59,7 +59,7 @@ const Wishlist = () => {
     <div className="min-h-screen flex flex-col bg-linear-to-r from-purple-200/40 via-indigo-300/30 to-violet-400/40 font-sans">
       <ShopNav />
 
-      <div className="max-w-7xl mx-auto w-full px-6 flex-1 pt-32 pb-20">
+      <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 flex-1 pt-40 lg:pt-32 pb-12 sm:pb-20">
         {/* Header Sector */}
         <div className="text-center mb-20 relative">
           <div className="absolute inset-0 -top-10 flex justify-center items-center opacity-[0.03] select-none pointer-events-none">

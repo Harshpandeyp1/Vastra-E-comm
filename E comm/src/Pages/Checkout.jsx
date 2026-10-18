@@ -263,7 +263,7 @@ const Checkout = () => {
     <div className="min-h-screen flex flex-col bg-gradient-to-r from-purple-200/40 via-indigo-300/30 to-violet-400/40 font-sans">
       <ShopNav />
 
-      <main className="max-w-6xl mx-auto w-full px-6 flex-1 py-28 md:py-36">
+      <main className="max-w-6xl mx-auto w-full px-4 sm:px-6 flex-1 pt-40 lg:pt-32 pb-12 lg:pb-0">
         <div className="mb-8">
           <Link 
             to="/cart" 
@@ -289,7 +289,7 @@ const Checkout = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
           {/* Shipping Form */}
-          <div className="lg:col-span-7 bg-white/70 backdrop-blur-xl p-8 md:p-10 rounded-[2.5rem] border border-white/60 shadow-2xl shadow-purple-900/5">
+          <div className="lg:col-span-7 bg-white/70 backdrop-blur-xl p-5 sm:p-8 md:p-10 rounded-[1.5rem] sm:rounded-[2.5rem] border border-white/60 shadow-2xl shadow-purple-900/5">
             <div className="flex items-center gap-3 pb-6 mb-6 border-b border-slate-900/10">
               <div className="p-3 bg-purple-100/70 text-purple-700 rounded-2xl">
                 <MapPin className="w-5 h-5" />
@@ -399,7 +399,7 @@ const Checkout = () => {
 
           {/* Order Summary & Button */}
           <div className="lg:col-span-5 space-y-6">
-            <div className="bg-white/70 backdrop-blur-xl p-8 rounded-[2.5rem] border border-white/60 shadow-2xl shadow-purple-900/5">
+            <div className="bg-white/70 backdrop-blur-xl p-5 sm:p-8 rounded-[1.5rem] sm:rounded-[2.5rem] border border-white/60 shadow-2xl shadow-purple-900/5">
               <div className="flex items-center justify-between pb-5 border-b border-slate-900/10">
                 <div className="flex items-center gap-2">
                   <ShoppingBag className="w-4 h-4 text-purple-600" />

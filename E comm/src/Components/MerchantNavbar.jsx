@@ -55,7 +55,7 @@ const MerchantNavbar = () => {
   ];
 
   return (
-    <nav className="w-full bg-[#0b0b0f] border-b border-gray-800 px-8 py-4 flex items-center justify-between">
+    <nav className="w-full bg-[#0b0b0f] border-b border-gray-800 px-4 sm:px-8 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
 
       {/* LOGO */}
       <div
@@ -80,7 +80,7 @@ const MerchantNavbar = () => {
       </div>
 
       {/* NAVIGATION */}
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-1 overflow-x-auto pb-1">
 
         {navItems.map((item) => {
           const Icon = item.icon;
@@ -90,7 +90,7 @@ const MerchantNavbar = () => {
               key={item.path}
               to={item.path}
               className={({ isActive }) =>
-                `flex items-center gap-2 px-4 py-2 rounded-lg text-sm transition ${
+                `flex shrink-0 items-center gap-2 px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm transition ${
                   isActive
                     ? "bg-white text-black"
                     : "text-gray-400 hover:text-white hover:bg-gray-900"
@@ -106,7 +106,7 @@ const MerchantNavbar = () => {
         {/* LOGOUT */}
         <button
           onClick={handleLogout}
-          className="ml-3 flex items-center gap-2 px-4 py-2 rounded-lg text-sm text-red-400 hover:text-red-300 hover:bg-red-500/10 transition"
+          className="ml-2 flex shrink-0 items-center gap-2 px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm text-red-400 hover:text-red-300 hover:bg-red-500/10 transition"
         >
           <FiLogOut className="w-4 h-4" />
           Logout

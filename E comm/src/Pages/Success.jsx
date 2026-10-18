@@ -21,7 +21,7 @@ const Success = () => {
     <div className="min-h-screen flex flex-col bg-linear-to-r from-purple-200/40 via-indigo-300/30 to-violet-400/40 font-sans">
       <ShopNav />
 
-      <div className="max-w-5xl mx-auto w-full px-6 flex-1 py-20 flex flex-col justify-center">
+      <div className="max-w-5xl mx-auto w-full px-4 sm:px-6 flex-1 pt-40 lg:pt-32 pb-12 sm:pb-20 flex flex-col justify-center">
         
         {/* Header Sector */}
         <div className="mb-12 relative text-center">

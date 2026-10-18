@@ -59,14 +59,14 @@ const Profile = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center pt-40  bg-gradient-to-r from-purple-200/40 via-indigo-300/30 to-violet-400/40 font-sans">
+    <div className="min-h-screen flex flex-col items-center pt-40 lg:pt-32 bg-gradient-to-r from-purple-200/40 via-indigo-300/30 to-violet-400/40 font-sans">
 
       <ShopNav />
 
-      <div className="w-full max-w-5xl bg-white rounded-[3rem] shadow-2xl overflow-hidden grid md:grid-cols-[320px_1fr]">
+      <div className="w-full max-w-5xl bg-white rounded-[2rem] md:rounded-[3rem] shadow-2xl overflow-hidden grid md:grid-cols-[320px_1fr] mx-3 sm:mx-6">
 
   {/* LEFT SIDEBAR */}
-  <div className="bg-slate-950 text-white p-10 flex flex-col items-center relative overflow-hidden">
+  <div className="bg-slate-950 text-white p-6 sm:p-10 flex flex-col items-center relative overflow-hidden">
 
     {/* Background Glow */}
     <div className="absolute w-72 h-72 bg-purple-600/20 rounded-full blur-3xl top-0 -left-20"></div>
@@ -109,7 +109,7 @@ const Profile = () => {
   </div>
 
   {/* RIGHT CONTENT */}
-  <div className="p-10 md:p-14">
+  <div className="p-6 sm:p-10 md:p-14">
 
     {/* Heading */}
     <div className="flex items-center justify-between border-b border-slate-100 pb-6">
@@ -119,7 +119,7 @@ const Profile = () => {
           Dashboard
         </p>
 
-        <h2 className="text-4xl font-black text-slate-900 mt-2">
+        <h2 className="text-3xl sm:text-4xl font-black text-slate-900 mt-2">
           My Account
         </h2>
       </div>
@@ -133,7 +133,7 @@ const Profile = () => {
     {/* Stats */}
     <div className="grid grid-cols-3 gap-4 mt-10">
 
-      <div className="bg-purple-50 rounded-3xl p-6">
+      <div className="bg-purple-50 rounded-2xl sm:rounded-3xl p-3 sm:p-6">
         <p className="text-xs uppercase tracking-widest text-slate-400 font-bold">
           Orders
         </p>
@@ -143,7 +143,7 @@ const Profile = () => {
         </h3>
       </div>
 
-      <div className="bg-pink-50 rounded-3xl p-6">
+      <div className="bg-pink-50 rounded-2xl sm:rounded-3xl p-3 sm:p-6">
         <p className="text-xs uppercase tracking-widest text-slate-400 font-bold">
           Wishlist
         </p>
@@ -153,7 +153,7 @@ const Profile = () => {
         </h3>
       </div>
 
-      <div className="bg-indigo-50 rounded-3xl p-6">
+      <div className="bg-indigo-50 rounded-2xl sm:rounded-3xl p-3 sm:p-6">
         <p className="text-xs uppercase tracking-widest text-slate-400 font-bold">
           Cart
         </p>

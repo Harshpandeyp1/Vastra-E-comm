@@ -47,7 +47,7 @@ const Order = () => {
     <div className="min-h-screen flex flex-col bg-linear-to-r from-purple-200/40 via-indigo-300/30 to-violet-400/40 font-sans">
       <ShopNav />
 
-      <div className="max-w-6xl mx-auto w-full px-6 flex-1 py-32">
+      <div className="max-w-6xl mx-auto w-full px-4 sm:px-6 flex-1 pt-40 lg:pt-32 pb-12 sm:pb-20">
         {/* Header Sector */}
         <div className="mb-16 relative">
           <div className="absolute -left-10 top-0 text-[120px] font-black text-purple-900/5 select-none leading-none uppercase pointer-events-none">

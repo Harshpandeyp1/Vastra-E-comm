@@ -57,7 +57,7 @@ const productsWithImages = products.map(product => ({
       <ShopNav />
 
       {/* Banner */}
-      <div className="relative w-full h-[70vh] mt-20">
+      <div className="relative w-full h-[55vh] min-h-[360px] md:h-[70vh] mt-40 lg:mt-32">
         <img
           src={kidsection}
           alt="Kids Section"
@@ -65,7 +65,7 @@ const productsWithImages = products.map(product => ({
         />
 
         <div className="absolute inset-0 bg-black/30 flex flex-col items-center justify-center">
-          <h1 className="text-white text-4xl md:text-6xl font-black tracking-widest">
+          <h1 className="text-white text-3xl sm:text-4xl md:text-6xl font-black tracking-widest text-center px-4">
             KIDS COLLECTION
           </h1>
           <p className="text-white text-lg md:text-xl mt-2">
@@ -78,21 +78,21 @@ const productsWithImages = products.map(product => ({
 
       {/* Heading */}
      <div className="text-center mb-24 relative">
-       <div className="absolute inset-0 -top-6 flex justify-center items-center opacity-[0.04] select-none pointer-events-none">
-          <h1 className="text-[140px] font-black text-slate-900 tracking-tighter uppercase">Playful</h1>
+       <div className="absolute inset-0 -top-6 flex justify-center items-center opacity-[0.04] select-none pointer-events-none overflow-hidden">
+          <h1 className="text-[22vw] md:text-[140px] font-black text-slate-900 tracking-tighter uppercase whitespace-nowrap">Playful</h1>
        </div>
        <div className="relative z-10">
           <h2 className="text-[10px] font-black text-purple-500 tracking-[0.5em] uppercase mb-4">
             Curated selection
           </h2>
-          <h3 className="text-5xl font-light text-slate-900 tracking-tighter uppercase">
+          <h3 className="text-3xl sm:text-4xl md:text-5xl font-light text-slate-900 tracking-tighter uppercase px-4">
             Top Tier <span className="font-serif italic text-purple-600 lowercase">Essentials</span>
           </h3>
        </div>
     </div>
 
       {/* Products */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 px-6 flex-grow">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8 px-4 sm:px-6 flex-grow">
         {productsWithImages.map((item) => (
           <Productcard key={item.id} item={item} />
         ))}

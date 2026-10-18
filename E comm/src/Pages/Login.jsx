@@ -141,17 +141,17 @@ const handleLogin = async () => {
       />
 
       {/* LOGIN WRAPPER (FIXED CENTERING) */}
-      <div className="w-full flex justify-end px-4 pr-40">
+      <div className="w-full flex justify-center lg:justify-end px-4 lg:pr-40">
 
         {/* Login Box */}
-        <div className="w-full max-w-md bg-[#0b0b0f] flex items-center justify-center p-6 font-sans relative overflow-hidden rounded-[3rem] shadow-lg">
+        <div className="w-full max-w-md bg-[#0b0b0f] flex items-center justify-center p-4 sm:p-6 font-sans relative overflow-hidden rounded-[2rem] sm:rounded-[3rem] shadow-lg">
 
           {/* Glow */}
           <div className="absolute w-100 h-100 bg-white/10 rounded-full blur-[120px] -z-10 animate-pulse" />
           <div className="absolute -bottom-37.5 -right-37.5 w-125 h-125 bg-gray-500/10 rounded-full blur-[140px] -z-10" />
 
           {/* Card */}
-          <div className="w-full rounded-[2.5rem] p-10 bg-white/5 backdrop-blur-2xl shadow-[0_20px_60px_rgba(0,0,0,0.6)] border border-white/10 relative overflow-hidden">
+          <div className="w-full rounded-[1.5rem] sm:rounded-[2.5rem] p-5 sm:p-8 md:p-10 bg-white/5 backdrop-blur-2xl shadow-[0_20px_60px_rgba(0,0,0,0.6)] border border-white/10 relative overflow-hidden">
 
             {/* Corner Accent */}
             <div className="absolute top-0 right-0 p-4 opacity-10">
@@ -170,7 +170,7 @@ const handleLogin = async () => {
 
               {/* Brand Text */}
               <div className="flex flex-col items-center mt-3">
-                <h1 className="text-3xl text-white tracking-[0.6em] leading-none font-light">
+                <h1 className="text-2xl sm:text-3xl text-white tracking-[0.4em] sm:tracking-[0.6em] leading-none font-light">
                   VASTRA
                 </h1>
 

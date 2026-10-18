@@ -4,13 +4,13 @@ import { Link } from 'react-router-dom'
 
 const Footer = () => {
   return (
-    <footer className="bg-black text-white px-16 py-20 mt-20">
+    <footer className="bg-black text-white px-6 sm:px-10 md:px-16 py-12 md:py-20 mt-12 md:mt-20">
 
       {/* Top Section */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
 
         {/* Brand */}
-        <div>
+        <div className="col-span-2 md:col-span-1">
 
           <h1 className="text-2xl font-black tracking-[0.4em]">
             VASTRA
@@ -83,7 +83,7 @@ const Footer = () => {
 
         <p>© 2026 VASTRA. All rights reserved.</p>
 
-        <div className="flex gap-6 mt-4 md:mt-0">
+        <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 mt-4 md:mt-0">
           <Link to="/privacy" className="hover:text-white cursor-pointer">Privacy Policy</Link>
           <Link to="/terms" className="hover:text-white cursor-pointer">Terms</Link>
           <Link to="/cookies" className="hover:text-white cursor-pointer">Cookies</Link>

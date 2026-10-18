@@ -19,12 +19,12 @@ const Categories = () => {
     <section className="w-full px-8 py-32 relative overflow-hidden">
       
       {/* Decorative Background Text (Subtle Luxury Touch) */}
-      <div className="absolute top-10 left-1/2 -translate-x-1/2 text-[12rem] font-black text-purple-50/40 select-none -z-10 tracking-tighter">
+      <div className="absolute top-10 left-1/2 -translate-x-1/2 text-[20vw] md:text-[12rem] font-black text-purple-50/40 select-none -z-10 tracking-tighter whitespace-nowrap">
         VASTRA
       </div>
 
       {/* Heading Section */}
-      <div className="flex flex-col items-center mb-24">
+      <div className="flex flex-col items-center mb-12 md:mb-24">
         <div className="flex items-center gap-3 mb-4">
           <span className="h-[1px] w-8 bg-purple-400"></span>
           <span className="text-[10px] tracking-[0.4em] font-bold uppercase text-purple-400">Collections</span>
@@ -36,7 +36,7 @@ const Categories = () => {
       </div>
 
       {/* Categories Grid */}
-    <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-16 place-items-center">
+    <div className="max-w-7xl mx-auto grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-10 lg:gap-16 place-items-center">
        {categories.map((item) => (
   <Link
     to={item.path || '#'}
@@ -44,7 +44,7 @@ const Categories = () => {
     className="flex flex-col items-center cursor-pointer group relative"
   >
     {/* Image Container */}
-    <div className="relative w-64 h-64 md:w-72 md:h-72 flex items-center justify-center">
+    <div className="relative w-36 h-36 sm:w-56 sm:h-56 md:w-72 md:h-72 flex items-center justify-center">
       
       <div className="absolute inset-0 bg-purple-200 rounded-full scale-90 group-hover:scale-100 transition-transform duration-700 shadow-inner"></div>
 

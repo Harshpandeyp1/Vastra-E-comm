@@ -148,12 +148,12 @@ const MerchantDashboard = () => {
 
       {/* Header */}
       <header className="border-b border-white/10 bg-black/40 backdrop-blur px-6 lg:px-10 py-6 sticky top-0 z-10">
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
+        <div className="max-w-7xl mx-auto flex flex-col items-start gap-4 sm:flex-row sm:justify-between sm:items-center">
           <div>
             <p className="text-purple-400 text-xs tracking-[0.25em] uppercase font-medium mb-1">
               Store Intelligence
             </p>
-            <h1 className="text-3xl font-light tracking-tight">Performance Analytics</h1>
+            <h1 className="text-2xl sm:text-3xl font-light tracking-tight">Performance Analytics</h1>
             <p className="text-gray-500 text-sm mt-0.5">
               Live metrics, fulfillment breakdowns, and revenue trajectories
             </p>

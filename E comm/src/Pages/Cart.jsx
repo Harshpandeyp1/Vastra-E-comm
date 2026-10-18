@@ -97,17 +97,17 @@ const Cart = () => {
     <div className="min-h-screen flex flex-col bg-linear-to-r from-purple-200/40 via-indigo-300/30 to-violet-400/40 font-sans">
       <ShopNav />
 
-      <div className="max-w-6xl mx-auto w-full px-6 flex-1 py-20">
+      <div className="max-w-6xl mx-auto w-full px-4 sm:px-6 flex-1 pt-40 lg:pt-32 pb-12 sm:pb-20">
         {/* Header Sector */}
-        <div className="mb-16 relative">
-          <div className="absolute -left-10 top-0 text-[120px] font-black text-purple-900/5 select-none leading-none">
+        <div className="mb-10 sm:mb-16 relative">
+          <div className="absolute -left-2 sm:-left-10 top-0 text-[72px] sm:text-[120px] font-black text-purple-900/5 select-none leading-none">
             BAG
           </div>
           <div className="relative z-10">
             <p className="text-[10px] font-black uppercase tracking-[0.5em] text-purple-500 mb-2">
               Selection Matrix // 2026
             </p>
-            <h1 className="text-5xl font-light tracking-tighter text-slate-900 leading-none">
+            <h1 className="text-4xl sm:text-5xl font-light tracking-tighter text-slate-900 leading-none">
               VASTRA <span className="italic text-purple-600 font-serif lowercase">Cart</span>
             </h1>
           </div>
@@ -142,10 +142,10 @@ const Cart = () => {
               {cartWithImages.map((item) => (
                 <div
                   key={item.id}
-                  className="group flex items-center gap-6 bg-white/60 backdrop-blur-xl p-6 rounded-4xl border border-white/50 shadow-2xl shadow-purple-900/5 transition-all hover:border-purple-300"
+                  className="group flex items-center gap-3 sm:gap-6 bg-white/60 backdrop-blur-xl p-3 sm:p-6 rounded-3xl sm:rounded-4xl border border-white/50 shadow-2xl shadow-purple-900/5 transition-all hover:border-purple-300"
                 >
                   {/* Image Container */}
-                  <div className="w-32 h-32 bg-stone-100 rounded-2xl overflow-hidden shrink-0 shadow-inner">
+                  <div className="w-20 h-20 sm:w-32 sm:h-32 bg-stone-100 rounded-2xl overflow-hidden shrink-0 shadow-inner">
                     <img
                       src={item.img}
                       alt={item.product?.name || "Product image"}
@@ -161,7 +161,7 @@ const Cart = () => {
                   <div className="flex-1 min-w-0">
                     <div className="flex justify-between items-start gap-2">
                       <div className="min-w-0">
-                        <h3 className="text-lg font-black uppercase tracking-tight text-slate-900 truncate">
+                        <h3 className="text-sm sm:text-lg font-black uppercase tracking-tight text-slate-900 truncate">
                           {item.product?.name || "Product"}
                         </h3>
                         <p className="text-[10px] font-bold text-purple-500 uppercase tracking-widest mt-1">
@@ -177,7 +177,7 @@ const Cart = () => {
                       </button>
                     </div>
 
-                    <div className="flex items-center justify-between mt-6">
+                    <div className="flex flex-col items-start gap-2 mt-3 sm:mt-6 sm:flex-row sm:items-center sm:justify-between">
                       {/* Price */}
                       <p className="text-xl font-light text-slate-900 font-mono">
                         ₹{(item.product?.price ?? item.price ?? 0).toLocaleString()}
@@ -210,7 +210,7 @@ const Cart = () => {
             </div>
 
             {/* Checkout Summary - Sticky */}
-            <div className="lg:sticky lg:top-32 bg-slate-900 p-10 rounded-[3rem] shadow-2xl text-white border border-white/10">
+            <div className="lg:sticky lg:top-32 bg-slate-900 p-6 sm:p-10 rounded-[2rem] sm:rounded-[3rem] shadow-2xl text-white border border-white/10">
               <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-purple-400 mb-8 pb-4 border-b border-white/10">
                 Order Summary
               </h2>

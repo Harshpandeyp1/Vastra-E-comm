@@ -21,8 +21,8 @@ const Hero = () => {
   }, [])
 
   return (
-<div className="px-6 mt-20">
-  <div className="relative w-full h-[80vh] overflow-hidden rounded-3xl shadow-xl">
+<div className="px-3 sm:px-6 mt-36 lg:mt-28">
+  <div className="relative w-full h-[60vh] min-h-[400px] md:h-[80vh] overflow-hidden rounded-2xl md:rounded-3xl shadow-xl">
 
     <img
       src={posters[index]}
@@ -32,7 +32,7 @@ const Hero = () => {
     <div className="absolute inset-0 bg-black/20"></div>
 
     <div className="absolute inset-0 flex flex-col items-center justify-center text-white text-center px-4">
-        <h1 className="text-4xl md:text-6xl font-black tracking-widest">
+        <h1 className="text-3xl sm:text-4xl md:text-6xl font-black tracking-widest">
           NEW SEASON ARRIVALS
         </h1>
 

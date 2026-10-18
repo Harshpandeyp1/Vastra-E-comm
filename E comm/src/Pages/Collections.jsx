@@ -114,7 +114,7 @@ const Collections = () => {
       <Navbar />
 
       {/* Hero Sector */}
-      <section className="pt-40 pb-12 text-center relative px-6">
+      <section className="pt-32 sm:pt-40 pb-12 text-center relative px-4 sm:px-6">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[14vw] font-black text-purple-900/5 select-none pointer-events-none uppercase tracking-tighter leading-none whitespace-nowrap">
           Vastra Core
         </div>
@@ -123,7 +123,7 @@ const Collections = () => {
           <p className="text-[10px] font-black uppercase tracking-[0.5em] text-purple-500 mb-3">
             System Interface // Catalogue Engine
           </p>
-          <h1 className="text-6xl md:text-7xl font-light tracking-tighter text-slate-900 leading-none">
+          <h1 className="text-4xl sm:text-5xl md:text-7xl font-light tracking-tighter text-slate-900 leading-tight">
             Explore Our <span className="font-serif italic text-purple-600 lowercase">Collections</span>
           </h1>
           <p className="mt-6 text-sm md:text-base text-slate-500 max-w-xl mx-auto font-medium leading-relaxed">
@@ -134,12 +134,12 @@ const Collections = () => {
 
       {/* Interactive Architecture Filter Tabs */}
       <div className="sticky top-16 bg-[#FFFFF0]/80 backdrop-blur-xl z-40 border-b border-stone-200/40 py-6 mb-8 transition-all">
-        <div className="max-w-7xl mx-auto px-6 flex justify-center gap-2 md:gap-4 overflow-x-auto no-scrollbar">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 flex justify-start sm:justify-center gap-2 md:gap-4 overflow-x-auto no-scrollbar">
           {tabs.map(tab => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`px-6 py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest transition-all whitespace-nowrap border ${
+              className={`shrink-0 px-5 sm:px-6 py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest transition-all whitespace-nowrap border ${
                 activeTab === tab
                   ? 'bg-slate-950 text-white border-slate-950 shadow-xl shadow-purple-950/10 scale-105'
                   : 'bg-transparent text-slate-400 border-stone-200 hover:text-slate-900 hover:border-slate-400'
