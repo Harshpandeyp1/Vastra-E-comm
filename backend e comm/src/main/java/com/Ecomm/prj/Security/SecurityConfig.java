@@ -23,6 +23,10 @@ import java.util.List;
 @Configuration
 public class SecurityConfig {
 
+    private static final String LOCAL_VITE_ORIGIN = "http://localhost:5173";
+    private static final String LOCAL_REACT_ORIGIN = "http://localhost:3000";
+    private static final String PRODUCTION_FRONTEND_ORIGIN = "https://vastra-e-comm-1-jnkv.onrender.com";
+
     private final JwtFilter jwtFilter;
     private final CustomUserDetailService customeruserdetailservice;
 
@@ -89,7 +93,13 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOriginPatterns(List.of("*"));
+        // Keep CORS explicit when credentials (for example Authorization headers)
+        // are enabled.  Wildcard origins must not be used with credentials.
+        configuration.setAllowedOrigins(List.of(
+                LOCAL_VITE_ORIGIN,
+                LOCAL_REACT_ORIGIN,
+                PRODUCTION_FRONTEND_ORIGIN
+        ));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);
