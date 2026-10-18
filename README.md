@@ -1,3 +1,9 @@
+
+URL OF THE APPLICATION--https://vastra-e-comm-1-jnkv.onrender.com
+
+
+
+
 <img width="1899" height="923" alt="Screenshot 2026-06-18 005311" src="https://github.com/user-attachments/assets/4f949099-faf9-4a2f-b6cd-2bc9952ffbcb" />
 VASTRA — AI-Powered Agentic E-Commerce Platform
 
