@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import ShopNav from '../Components/ShopNav'
 import Footer from '../Components/Footer'
 import { getWishlist, removeFromWishlist } from "../Service/Wishlist"
@@ -93,41 +93,57 @@ const Wishlist = () => {
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
-            {wishlistWithImages.map((item) => (
-              <div key={item.id} className="group relative">
-                {/* Image Container */}
-                <div className="relative aspect-3/4 overflow-hidden rounded-4xl bg-stone-100 shadow-2xl shadow-purple-900/10">
-                  <img
-                    src={item.img}
-                    alt={item.product?.name || "Product"}
-                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
-                  />
+            {wishlistWithImages.map((item) => {
+              const productId = item.product?.id ?? item.productId
 
-                  {/* Floating Action Overlay */}
-                  <div className="absolute inset-x-4 bottom-4 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-                    <button
-                      type="button"
-                      onClick={() => handleRemove(item.id)}
-                      className="w-full bg-white/10 backdrop-blur-md border border-white/20 text-white py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-red-500/80 transition-colors cursor-pointer"
+              return (
+                <div key={item.id} className="group relative">
+                  {/* Image Container */}
+                  <div className="relative aspect-3/4 overflow-hidden rounded-4xl bg-stone-100 shadow-2xl shadow-purple-900/10">
+                    <Link
+                      to={`/product/${productId}`}
+                      className="block h-full"
+                      aria-label={`View ${item.product?.name || "product"}`}
                     >
-                      Remove from Archive
-                    </button>
+                      <img
+                        src={item.img}
+                        alt={item.product?.name || "Product"}
+                        className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                      />
+                    </Link>
+
+                    {/* Floating Action Overlay */}
+                    <div className="absolute inset-x-4 bottom-4 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+                      <button
+                        type="button"
+                        onClick={(event) => {
+                          event.stopPropagation()
+                          handleRemove(item.id)
+                        }}
+                        className="w-full bg-white/10 backdrop-blur-md border border-white/20 text-white py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-red-500/80 transition-colors cursor-pointer"
+                      >
+                        Remove from Archive
+                      </button>
+                    </div>
                   </div>
-                </div>
 
-                {/* Info Sector */}
-                <div className="mt-6 px-2 text-center">
-                  <h2 className="text-xs font-black uppercase tracking-widest text-slate-900 mb-1 group-hover:text-purple-600 transition-colors">
-                    {item.product?.name}
-                  </h2>
-                  <p className="text-sm font-light text-slate-600">
-                    ₹{item.product?.price?.toLocaleString()}
-                  </p>
+                  {/* Info Sector */}
+                  <Link
+                    to={`/product/${productId}`}
+                    className="mt-6 block px-2 text-center"
+                  >
+                    <h2 className="text-xs font-black uppercase tracking-widest text-slate-900 mb-1 group-hover:text-purple-600 transition-colors">
+                      {item.product?.name}
+                    </h2>
+                    <p className="text-sm font-light text-slate-600">
+                      ₹{item.product?.price?.toLocaleString()}
+                    </p>
 
-                  <div className="mt-3 h-px w-8 bg-purple-200 mx-auto group-hover:w-16 transition-all duration-500" />
+                    <div className="mt-3 h-px w-8 bg-purple-200 mx-auto group-hover:w-16 transition-all duration-500" />
+                  </Link>
                 </div>
-              </div>
-            ))}
+              )
+            })}
           </div>
         )}
       </div>
