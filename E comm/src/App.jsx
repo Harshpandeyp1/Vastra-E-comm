@@ -26,6 +26,7 @@ import MerchantPending from "./Pages/MerchantPending";
 import ProductDetail from "./Pages/ProductDetail";
 import MerchantDeliveries from "./Pages/MerchantDeliveries";
 import Chat from "./Components/Chatbot/Chat";
+import AdminDashboard from "./Pages/AdminDashboard";
 function ScrollToTop(){
   const { pathname } = useLocation();
 
@@ -87,7 +88,10 @@ function App() {
       </ProtectedRoute>
     }
   />
-
+<Route
+    path="/admin/dashboard"
+    element={<AdminDashboard />}
+/>
   <Route
     path="/collections"
     element={

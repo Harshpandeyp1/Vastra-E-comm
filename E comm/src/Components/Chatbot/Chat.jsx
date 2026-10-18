@@ -5,6 +5,7 @@ import { addToCart } from "../../Service/Cart";
 import { addToWishlist } from "../../Service/Wishlist";
 import { getProfile } from "../../Service/Profile";
 import { getImageUrl } from "../../utils/imageHelpers";
+import { apiUrl } from "../../config/api";
 import {
   FiSend,
   FiX,
@@ -78,12 +79,8 @@ const Chat = () => {
     if (!raw) return PLACEHOLDER_IMG;
     if (typeof raw === "string") {
       if (/^(https?:|data:|blob:)/i.test(raw)) return raw;
-      if (raw.includes("localhost:") && !raw.includes(":8081")) {
-        const filename = raw.split("/").pop();
-        return `http://localhost:8081/images/${filename}`;
-      }
       if (!raw.startsWith("http")) {
-        return `http://localhost:8081/images/${raw}`;
+        return apiUrl(`images/${raw}`);
       }
     }
 

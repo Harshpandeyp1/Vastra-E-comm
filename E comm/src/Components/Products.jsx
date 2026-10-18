@@ -6,6 +6,7 @@ import {
   removeFromWishlist,
   getWishlist
 } from "../Service/Wishlist"
+import { apiUrl } from "../config/api";
 
 // Standard fallback if an image is missing or broken
 const PLACEHOLDER_IMG = "https://via.placeholder.com/300x400?text=No+Image"
@@ -33,7 +34,7 @@ const Product = () => {
 
   // Load products
   useEffect(() => {
-    fetch('http://localhost:8081/api/home')
+    fetch(apiUrl("api/home"))
       .then(response => response.json())
       .then(data => {
         setProducts(data?.trendings || [])
@@ -50,7 +51,7 @@ const Product = () => {
     if (!item?.imageUrl) return PLACEHOLDER_IMG
     // Prepends backend server if image is stored as relative path (e.g., /uploads/img.jpg)
     if (item.imageUrl.startsWith('/')) {
-      return `http://localhost:8081${item.imageUrl}`
+      return apiUrl(item.imageUrl)
     }
     return item.imageUrl
   }
