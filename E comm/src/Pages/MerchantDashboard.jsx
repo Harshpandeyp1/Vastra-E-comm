@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import MerchantNavbar from "../Components/merchantNavbar";
+import MerchantNavbar from "../Components/MerchantNavbar";
 import axios from "axios";
 import { apiUrl } from "../config/api";
 import MerchantChat from "../Components/Chatbot/MerchantChat";

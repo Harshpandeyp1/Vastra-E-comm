@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from "react";
 import axios from "axios";
-import MerchantNavbar from "../Components/merchantNavbar";
+import MerchantNavbar from "../Components/MerchantNavbar";
 import { apiUrl } from "../config/api";
 import {
   FiPackage,

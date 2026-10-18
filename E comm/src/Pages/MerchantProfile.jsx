@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import MerchantNavbar from "../Components/merchantNavbar";
+import MerchantNavbar from "../Components/MerchantNavbar";
 import { apiUrl } from "../config/api";
 const MerchantProfile = () => {
   const [profile, setProfile] = useState(null);
