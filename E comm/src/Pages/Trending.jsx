@@ -11,7 +11,7 @@ import ShopNav from '../Components/ShopNav'
 import AutoScroller from '../Components/AutoScroller'
 import Productcard from '../Components/Productcard'
 import Footer from '../Components/Footer'
-import Trending from '../assets/trending.jpg'
+import Trending from '../assets/Trending.jpg'
 import { apiUrl } from "../config/api";
 
 const Trendings = () => {
